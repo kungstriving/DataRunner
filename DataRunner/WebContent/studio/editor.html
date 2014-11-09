@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Editor</title>
+<link rel="stylesheet" href="editor.css" media="screen">
+</head>
+<body class="claro">
+
+<div id="editor_outer" data-dojo-type="dijit/layout/BorderContainer">
+	<!-- top menu bar -->
+	<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'top',splitter:false">menu</div>
+	<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center',splitter:false">center</div>
+	<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'left',splitter:false">left</div>
+</div>
+    <!-- load dojo and provide config via data attribute -->
+    <script type="text/javascript">
+    	var dojoConfig = {
+    			async:true,
+    			parseOnLoad:true
+    	};
+    </script>
+    <script src="../js/dojo/dojo.js"></script>
+    <script src="editor.js" type="text/javascript"></script>
+</body>
+</html>
