@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" id="svg">
+	<script>
+		var xmlns = "http://www.w3.org/2000/svg";
+		function start() {
+			var okRect = document.getElementById("ok1");
+			/*
+			var animateRect = document.createElementNS(xmlns, "animateTransform");
+			animateRect.setAttribute("attributeName","transform");
+			//animateRect.setAttribute("begin","0s");
+			animateRect.setAttribute("dur","3s");
+			animateRect.setAttribute("type","rotate");
+			animateRect.setAttribute("from","0 150 140");
+			animateRect.setAttribute("to","360 150 140");
+			animateRect.setAttribute("repeatCount","indefinite");
+			okRect.appendChild(animateRect);
+			*/
+			var okRect = document.getElementById("ok1");
+			var animSvg = document.getElementById("svg");
+			if (animSvg.animationsPaused()) {
+				animSvg.unpauseAnimations();
+			} else {
+				var animRect = document.getElementById("animok");
+				animRect.endElement();
+				animRect.beginElement();
+			}
+			
+		};
+		function stop() {
+			var animRect = document.getElementById("svg");
+			//animRect.endElement();		//针对animate元素有用
+			animRect.pauseAnimations();		//针对svg元素有用
+		};
+		function gofaster() {
+			var animRect = document.getElementById("animok");
+			
+			var lastDur = animRect.getAttribute("dur");
+			var newDur = lastDur - 2;
+			animRect.setAttribute("dur",newDur);
+			
+			//animRect.endElement();
+			animRect.beginElement();
+			/*
+			var animSvg = document.getElementById("svg");
+			if (animSvg.animationsPaused()) {
+				animSvg.unpauseAnimations();
+			} else {
+				var animRect = document.getElementById("animok");
+				animRect.endElement();
+				animRect.beginElement();
+			}
+			*/
+		};
+	</script>
+	<rect x="100" y="100" width="100" height="80" fill="red" id="ok1">
+		<animateTransform id="animok"
+			attributeName="transform"
+            begin="indefinite"
+            dur="20"
+            type="rotate"
+            from="0 150 140"
+            to="360 150 140"
+            repeatCount="indefinite" />
+	</rect>
+	<g onclick="start();">
+	<rect x="110" y="210" width="80" height="30" fill="gray" />
+	<text x="120" y="227" >Start</text>
+	</g>
+	<g onclick="stop();">
+	<rect x="200" y="210" width="80" height="30" fill="gray" />
+	<text x="215" y="227" >Stop</text>
+	</g>
+	<g onclick="gofaster();">
+	<rect x="290" y="210" width="80" height="30" fill="gray" />
+	<text x="310" y="227" >+</text>
+	</g>
+</svg>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg">
+	<defs>
+<!-- 		<linearGradient id="fillperc" x2="0%" y2="100%"> -->
+<!--         	<stop offset="40%" stop-color="red" /> -->
+<!--         	<stop offset="40%" stop-color="blue" /> -->
+<!--         	<stop offset="60%" stop-color="blue" /> -->
+<!--         	<stop offset="60%" stop-color="purple" /> -->
+<!--         	<stop offset="80%" stop-color="purple" /> -->
+<!--         	<stop offset="80%" stop-color="yellow" /> -->
+<!--       	</linearGradient> -->
+		<linearGradient id="d317e7c5-e5d1-4e8e-a75f-6921cdf5d62c" x2="0%" y2="100%">
+        	<stop offset="0%" stop-color="white">
+        		<animate id="5e6cb560-9ea8-4954-8e87-f79d8303f6ad" attributeName="stop-color" attributeType="XML" to="red" 
+        			begin="indefinite" dur="1s" fill="freeze" repeatCount="1" />
+        		<animate id="e98dd2cc-cdf1-47fc-9cde-7da7d7682f52" attributeName="offset" attributeType="XML" to="0.4" 
+        			begin="indefinite" dur="1s" fill="freeze" repeatCount="1" />
+        	</stop>
+        	<stop offset="0%" stop-color="white" >
+        		<animate id="f98e9dfd-7a0c-4411-a17d-b8b8661792ea" attributeName="stop-color" attributeType="XML" to="green" 
+        			begin="indefinite" dur="1s" fill="freeze" repeatCount="1" />
+        		<animate id="a60f03de-4d9d-4414-81b5-ac67d200400a" attributeName="offset" attributeType="XML" to="0.4" 
+        			begin="indefinite" dur="1s" fill="freeze" repeatCount="1" />
+        	</stop>
+      	</linearGradient>
+	</defs>
+	<g transform="translate(0,15)">
+    	<path
+			d="m10,20 a180,180 0 0,1 200,0 l0,10 l10,0 l0,10 l-10,0 l0,300 l10,0 l0,10 l-10,0 l0,10
+    					a180,180 0 0,1 -200,0 l0,-10 l-10,0 l0,-10 l10,0 l0,-300 l-10,0 l0,-10 l10,0 l0,-10"
+			style="fill:#CCCC99;stroke:black;stroke-width:2px;" />
+    	<ellipse cx="150" cy="190" rx="20" ry="160"
+			style="fill:url(#d317e7c5-e5d1-4e8e-a75f-6921cdf5d62c);stroke:black;stroke-width:2px;" />
+    </g>
+</svg>

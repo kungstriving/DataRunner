@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg">
+	<g>
+    	<path d="m30,80 a40,40 0 1,1 40,0 l10,10 l-60,0 l10,-10"
+			style="stroke:black;stroke-width:2px;fill:none;" />
+    	<circle cx="50" cy="45" r="30"
+			style="fill:none;stroke:black;stroke-width:2px;" />
+    	<g id="f9f69de0-c1f3-49a0-863f-15ac0573dba5">
+    		<ellipse cx="50" cy="45" rx="5" ry="30"
+				style="fill:none;stroke:black;stroke-width:2px;" />
+    		<ellipse cx="50" cy="45" rx="5" ry="30"
+				style="fill:none;stroke:black;stroke-width:2px;"
+				transform="rotate(45,50,45)" />
+    		<ellipse cx="50" cy="45" rx="5" ry="30"
+				style="fill:none;stroke:black;stroke-width:2px;"
+				transform="rotate(90,50,45)" />
+    		<ellipse cx="50" cy="45" rx="5" ry="30"
+				style="fill:none;stroke:black;stroke-width:2px;"
+				transform="rotate(135,50,45)" />
+			<animateTransform id="a52995c3-59e1-4b04-b8f6-cd573c43a7c7" 
+				attributeName="transform" type="rotate"
+				from="0,50,45" to="360,50,45" begin="indefinite" dur="2s" fill="freeze"
+				repeatCount="indefinite" />
+    	</g>
+    </g>
+</svg>

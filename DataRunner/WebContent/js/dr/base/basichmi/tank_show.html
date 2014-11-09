@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Tank Show</title>
+<script type="text/javascript" src="../../js/jquery-2.1.0.js"></script>
+<script type="text/javascript">
+
+	function fill20() {
+		
+		var frontSelect = document.getElementById("frontColorSelect");
+		var selIndex = frontSelect.selectedIndex;
+		var frontColor = frontSelect.options[selIndex].value;
+		
+		var backSelect = document.getElementById("backColorSelect");
+		selIndex = backSelect.selectedIndex;
+		var backColor = backSelect.options[selIndex].value;
+		
+		animateFill(backColor,frontColor,"0.8");
+	};
+	
+	function fill40() {
+		
+		var frontSelect = document.getElementById("frontColorSelect");
+		var selIndex = frontSelect.selectedIndex;
+		var frontColor = frontSelect.options[selIndex].value;
+		
+		var backSelect = document.getElementById("backColorSelect");
+		selIndex = backSelect.selectedIndex;
+		var backColor = backSelect.options[selIndex].value;
+		
+		animateFill(backColor,frontColor,"0.6");
+	};
+	
+	function fill80() {
+		
+		var frontSelect = document.getElementById("frontColorSelect");
+		var selIndex = frontSelect.selectedIndex;
+		var frontColor = frontSelect.options[selIndex].value;
+		
+		var backSelect = document.getElementById("backColorSelect");
+		selIndex = backSelect.selectedIndex;
+		var backColor = backSelect.options[selIndex].value;
+		
+		animateFill(backColor,frontColor,"0.2");
+	};
+	
+	function animateFill(backColor,frontColor,fillPerc) {
+		var animBackStopColor = $("#backStopColor");
+		var animBackStopOffset = $("#backStopOffset");
+		var animFrontStopColor = $("#frontStopColor");
+		var animFrontStopOffset = $("#frontStopOffset");
+		
+		animBackStopColor.attr("to",backColor);
+		animBackStopOffset.attr("to",fillPerc);
+		animFrontStopColor.attr("to",frontColor);
+		animFrontStopOffset.attr("to",fillPerc);
+		
+		animBackStopColor[0].beginElement();
+		animBackStopOffset[0].beginElement();
+		animFrontStopColor[0].beginElement();
+		animFrontStopOffset[0].beginElement();
+	}
+</script>
+</head>
+<body>
+<div>
+	<button onclick="fill20();">填充20%</button>
+	<button onclick="fill40();">填充40%</button>
+	<button onclick="fill80();">填充80%</button>
+	<select id="frontColorSelect">
+		<option value="red">红色</option>
+		<option value="blue">蓝色</option>
+		<option value="white">白色</option>
+		<option value="black">黑色</option>
+		<option value="green">绿色</option>
+	</select>
+	<button onclick="setFrontColor();">设置填充前景色</button>
+	<select id="backColorSelect">
+		<option value="red">红色</option>
+		<option value="blue">蓝色</option>
+		<option value="white">白色</option>
+		<option value="black" selected="selected">黑色</option>
+		<option value="green">绿色</option>
+	</select>
+	<button onclick="setBackColor();">设置填充背景色</button>
+</div>
+<div id="showpad" style="margin-top: 50px;margin-left: 50px;">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg">
+	<defs>
+		<linearGradient id="d317e7c5-e5d1-4e8e-a75f-6921cdf5d62c" x2="0%" y2="100%">
+        	<stop offset="0%" stop-color="white">
+        		<animate id="backStopColor" attributeName="stop-color" attributeType="XML" to="red" 
+        			begin="indefinite" dur="1s" fill="freeze" repeatCount="1" />
+        		<animate id="backStopOffset" attributeName="offset" attributeType="XML" to="0.4" 
+        			begin="indefinite" dur="1s" fill="freeze" repeatCount="1" />
+        	</stop>
+        	<stop offset="0%" stop-color="white" >
+        		<animate id="frontStopColor" attributeName="stop-color" attributeType="XML" to="green" 
+        			begin="indefinite" dur="1s" fill="freeze" repeatCount="1" />
+        		<animate id="frontStopOffset" attributeName="offset" attributeType="XML" to="0.4" 
+        			begin="indefinite" dur="1s" fill="freeze" repeatCount="1" />
+        	</stop>
+      	</linearGradient>
+	</defs>
+	<g transform="translate(0,15)">
+    	<path
+			d="m10,20 a180,180 0 0,1 200,0 l0,10 l10,0 l0,10 l-10,0 l0,300 l10,0 l0,10 l-10,0 l0,10
+    					a180,180 0 0,1 -200,0 l0,-10 l-10,0 l0,-10 l10,0 l0,-300 l-10,0 l0,-10 l10,0 l0,-10"
+			style="fill:#CCCC99;stroke:black;stroke-width:2px;" />
+    	<ellipse cx="150" cy="190" rx="20" ry="160"
+			style="fill:url(#d317e7c5-e5d1-4e8e-a75f-6921cdf5d62c);stroke:black;stroke-width:2px;" />
+    </g>
+</svg>
+</div>
+</body>
+</html>
