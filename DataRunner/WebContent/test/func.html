@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Funcs Test</title>
+</head>
+<body>
+<script type="text/javascript">
+	var funcjson = '{"a":"b()"}';
+	
+	function a() {
+		alert('a');
+	}
+	
+	function b() {
+		alert('b');
+	}
+	
+	var fo = JSON.parse(funcjson);
+	var s = fo.a;
+	//alert(s);
+	eval(s);
+	//fo["on"]();
+	//funcjson[a]();
+	///funcjson.a();
+	//var s = "a";
+	//var f = (function)s;
+	//f();
+</script>
+</body>
+</html>

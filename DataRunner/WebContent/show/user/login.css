@@ -1,0 +1,11 @@
+.login-main-title {
+	font-family:arial, serif;
+	color:orange;
+	font-size:5em;
+	font-weight: 800;
+}
+
+.loginBtnCss .dijitButtonNode{
+	width:680px;
+	height:100px;
+}

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>start</title>
+<script type="text/javascript" src="../dojo/dojo.js" data-dojo-config="async:true,has:{'dojo-firebug':true}"></script>
+<script type="text/javascript">
+	require(["dojo/on","dojo/dom","dojo/store/Memory", "dojo/store/Observable","dojo/_base/array","dojo/domReady!"],
+			function(on,dom,Memory,Observable,array) {
+		var someData = [
+		                {name:"a",value:1},
+		                {name:"b",value:2},
+		                {name:"c",value:3}];
+		var someData = [];
+	    // create the initial Observable store
+	    var store = new Observable(new Memory({data: someData, idProperty:"name"}));
+
+	    // query the store
+	    var results = store.query({});
+
+	    // now listen for any changes
+	    var observeHandle = results.observe(function(object, removedFrom, insertedInto){
+	    	//update change
+	    	console.log(JSON.stringify(object));
+	    }, true);
+	    
+	    //someData.push({name:"d",value:4});
+	    store.put({name:"d",value:4});
+	    var button = dom.byId("changeit");
+	    on(button, "click", function(evt) {
+	    	console.log("click");
+	    	var data = store.get("a");
+	    	data.value = Math.floor(Math.random() * 10 + 1);
+	    	store.put(data);
+	    });
+	    
+	    //var mapObj = {"a":"one","b":"two","c":"three"};
+	    var mapObj = ["a","b"];
+	    array.forEach(mapObj, function(item,i) {
+	    	alert(item);
+	    })
+	});
+</script>
+</head>
+<body>
+<button id="changeit">ClickMe</button>
+</body>
+</html>

@@ -1,15 +1,64 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8" 
-	name="viewport" 
-	content="width=device-width,user-scalable=yes,initial-scale=1,minimum-scale=0.8,maximum-scale=2" >
-<title>show</title>
+<meta charset="UTF-8" name="viewport" content="width=device-width,initial-scale=1">
+<title>登录系统</title>
+<link rel="stylesheet" href="../../css/jquery.mobile-1.4.2.min.css">
+<link rel="stylesheet" href="../../css/nost.css" />
+<link rel="stylesheet" href="login.css" />
+
+<script type="text/javascript" src="../../dojo/dojo.js"
+	data-dojo-config="async:true,has:{'dojo-firebug':true}"></script>
+<script type="text/javascript" src="login.js"></script>
 </head>
 <body>
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-	<rect x="10" y="10" height="100" width="100" style="stroke:#009999;fill:#3333ff;fill-opacity:0.3" 
-		dr-type="shape-rect" dr-props="" dr-data=""/>
-</svg>
+<div id="loginpage" data-role="page" style="background-color: lightgray;">
+		<div id="loginpanel" 
+			style="margin-top: 300px;margin-left: 10px;margin-right: 10px;background-color: #654321;opacity:0;" class="ui-corner-all ui-shadow">
+			<div data-role="header">
+				<h1>请登录</h1>
+			</div>
+
+			<div data-role="main" class="ui-content">
+				<label for="un" class="ui-hidden-accessible">用户名：</label>
+				<input name="username" id="un" value="" placeholder="用户名" type="text" />
+				<label for="pwd" class="ui-hidden-accessible">密码：</label>
+				<input name="password" id="pwd" value="" placeholder="密码" type="password" />
+				<button id="loginbtn" class="ui-btn ui-corner-all ui-shadow" >登 录</button>
+			</div>
+		</div>
+	</div>
+<!-- <svg id="sketchpad" version="1.1" xmlns="http://www.w3.org/2000/svg" -->
+<!-- 		viewBox="0 0 640 960" style="background-color: #123456"> -->
+<!-- 	<defs> -->
+<!-- 		<filter id="shadow" x="0" y="0" filterUnits="objectBoundingBox" width="150%" height="150%"> -->
+<!-- 			<feOffset in="SourceAlpha" dx="20" dy="20" result="offset" /> -->
+<!-- 			<feGaussianBlur in="offset" stdDeviation="10" result="blur" /> -->
+<!-- 			<feMerge> -->
+<!-- 				<feMergeNode in="blur" /> -->
+<!-- 				<feMergeNode in="SourceGraphic" /> -->
+<!-- 			</feMerge> -->
+<!-- 		</filter> -->
+<!-- 	</defs> -->
+<!-- 	<image id="loginbg" x="0" y="0" width="100%" height="100%" -->
+<!-- 		xlink:href="Chat.png" preserveAspectRatio="none";/> -->
+<!-- 	<foreignObject x="10%" y="5%" width="80%" height="30%"> -->
+<!-- 			<p class="login-main-title">主标题主标题主标题主标题</p> -->
+<!-- 	</foreignObject> -->
+<!-- 	<rect x="10%" y="20%" width="80%" height="70%" rx="5%" ry="3%" -->
+<!-- 		style="fill:green;opacity:0.5;filter:url(#shadow);" /> -->
+<!-- 	<foreignObject x="15%" y="30%" width="200px" height="80px"> -->
+<!-- 		<label for="username" style="font-size: 3em;">用户名:</label> -->
+<!-- 	</foreignObject> -->
+<!-- 	<foreignObject x="35%" y="30%" width="600px" height="120px"> -->
+<!-- 		<input id="username" data-dojo-type="dijit/form/TextBox" data-dojo-props="placeHolder:'请输入用户名'"/> -->
+<!-- 	</foreignObject> -->
+<!-- 	<foreignObject x="15%" y="65%" width="700px" height="120px"> -->
+<!-- 		<button id="loginbtn" data-dojo-type="dijit/form/Button" class="loginBtnCss"> -->
+<!-- 			<span style="font-size: 5em;">登&nbsp;&nbsp;录</span> -->
+<!-- 		</button> -->
+<!-- 	</foreignObject> -->
+
+<!-- </svg> -->
 </body>
 </html>

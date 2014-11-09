@@ -1,0 +1,27 @@
+1..........................................
+//control units
+cus={"prop":"rel_tag_expr",...}
+--控制单元，表明该元素(可能是单个对象或者图元)的属性与哪一个表达式关联
+
+2..........................................
+//match table
+mt=[{"trigger_field":"prop",
+	"matchstatus":{"status":"on",
+					"v1array":[30],
+					"cmparray":["co"],
+					"v2array":[9999999999]}}]
+--匹配表(复杂)，通过该属性表明该元素的属性在相应的值下应该表现的形式，比如：在‘速度’属性大于100后，颜色显示为红色
+trigger_field 表明触发该匹配规则的属性
+matchstatus 匹配状态，该属性可能根据不同图元有所变化，其中status表明一个逻辑状态，cmparray表明比较判断的开[open=o]闭[close=c]
+注：匹配表适用于参数值是离散的情况，对于持续变化的值，需要通过函数来处理
+
+3............................................
+//event control
+ec={"eventsource":"event-handle-func",
+	"eventsource":"event-handle-func"}
+--事件控制，通过该属性表明该元素的事件处理方式，eventsource是事件源，比如‘开关打开了’，后面对应的是该事件的处理函数
+
+4............................................
+//set props 设置固定属性值，与cus[control units]相似，cus配置的是某个属性对应的可变表达式；而sps[set props]配置的
+//是固定值，比如背景色固定是红色
+sps={"prop-A":"value1","prop-B":"value2"}

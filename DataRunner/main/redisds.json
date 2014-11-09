@@ -1,0 +1,23 @@
+//没有租户定义
+
++++++++++++++++++++= PUB/SUB +++++++++++++++++++++++++++++++++++
+
+1.login
+	login - {mid:1,username:user1,secPwd:secpwd}
+	login:ack - {mid:1,code:0}
+2.sendCommand
+	#dsname#:control - {mid:2,name:tag1,field:value,value:100}
+	
++++++++++++++++++++ DATASTRUCTURE ++++++++++++++++++++++++++++++++++
+
+key						type		desc				example
+datasources				set			所有数据源名称			[demo,rand]
+datasources:#dsname#	set			该数据源中所有点名称		[tag1,tag2,tag3]
+tag:#dsname#:#tagname#	hash		点的值和更新计数		{updateFlag:345,value:100}
+groups					set			所有群组				[root,manager,user] -- (群组名)
+group:#groupname#		set			当前群组所有用户		[xyz1,abc2]--(用户名)
+user:#username#			hash		定义用户				{username:xyz,desc:aaa}
+user:#username#:groups	set			该用户所属的所有群组		[root,manager]
+authitems				set			系统所有授权项			[ainame,ainame2] -- (授权项名称)
+authitem:#ainame#		hash		授权项信息				{name:switch,desc:oo,id:1} -- ()
+authrel:#groupname#		hash		群组与授权项的授权关系	{ainame1:0,ainame2:2,ainame3:2}

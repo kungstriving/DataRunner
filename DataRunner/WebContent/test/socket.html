@@ -1,0 +1,26 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>SocketTest</title>
+<script type="text/javascript" src="../dojo/dojo.js" data-dojo-config="async:true,has:{'dojo-firebug':true}"></script>
+
+</head>
+<body>
+<script type="text/javascript">
+require(["dojox/socket", "dojo/domReady!"],function(Socket) {
+	var socket = new Socket("/nono/socket");
+	socket.on("message", function(event) {
+		var data = event.data;
+		alert(data);
+	});
+
+	socket.on("open", function(event) {
+		socket.send("hiserver");
+	});
+	alert("html");
+});
+</script>
+</body>
+</html>

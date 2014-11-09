@@ -1,0 +1,11 @@
+.pipeline-h {
+	stroke:none;
+	fill:url(#lineGra-h);
+	filter:url(#shadowed);
+}
+
+.pipeline-v {
+	stroke:none;
+	fill:url(#lineGra-v);
+	filter:url(#shadowed);
+}

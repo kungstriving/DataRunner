@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="../dojo/dojo.js" data-dojo-config="async:true,has:{'dojo-firebug':true}"></script>
+</head>
+<body>
+<script type="text/javascript">
+require(["dojo/request", "dojo/domReady!"],function(request) {
+	setInterval(requestYou, 3000);
+	
+	function requestYou() {
+		request.post("/nono/nost", {
+			data:{
+				"action":"",
+				"pageName":"a",
+				"tags":"b"
+			},
+			handleAs:"json"
+		}).then(
+				function(response) {
+					console.log(response);
+				},
+				function(error) {
+					console.log(error);
+				}
+		);
+	}
+
+});
+
+</script>
+</body>
+</html>

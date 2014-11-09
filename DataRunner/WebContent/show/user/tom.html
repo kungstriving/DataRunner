@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<title>Tom Demo</title>
+
+<link rel="stylesheet" href="./css/nost.css" />
+<link rel="stylesheet" href="./pages/tom/tom.css" />
+<script type="text/javascript" src="./dojo/dojo.js"
+	data-dojo-config="async:true,has:{'dojo-firebug':true}"></script>
+<script type="text/javascript" src="./js/parser.js"></script>
+<script type="text/javascript" src="./pages/tom/tom.js"></script>
+
+</head>
+<body>
+	<svg id="sketchpad" version="1.1" xmlns="http://www.w3.org/2000/svg"
+		viewBox="0 0 640 1136" style="background-color: #ABCDEF">
+		<defs>
+			<filter id="shadowed" x="0" y="0" width="150%" height="180%"
+			filterUnits="objectBoundingBox">
+				<feOffset in="SourceAlpha" dx="3" dy="3" result="offset" />
+				<feGaussianBlur in="offset" stdDeviation="4" result="blur" />
+				<feBlend in="SourceGraphic" in2="blur" />
+			</filter>
+			<linearGradient id="lineGra-h" x1="0%" y1="0%" x2="0%" y2="100%"
+			spreadMethod="pad">
+      			<stop offset="0%" stop-color="#CCCCCC" stop-opacity="0.5" />
+      			<stop offset="50%" stop-color="#CCCCCC" stop-opacity="1" />
+      			<stop offset="100%" stop-color="#CCCCCC" stop-opacity="0.5" />
+    		</linearGradient>
+    		<linearGradient id="lineGra-v" x1="0%" y1="0%" x2="100%" y2="0%"
+			spreadMethod="pad">
+      			<stop offset="0%" stop-color="#CCCCCC" stop-opacity="0.5" />
+      			<stop offset="50%" stop-color="#CCCCCC" stop-opacity="1" />
+      			<stop offset="100%" stop-color="#CCCCCC" stop-opacity="0.5" />
+    		</linearGradient>
+
+    		<linearGradient id="fillperc" x2="0%" y2="100%">
+        		<stop offset="40%" stop-color="red" />
+        		<stop offset="40%" stop-color="yellow" />
+      		</linearGradient>
+    		
+		</defs>
+			
+		<rect id="test1" x="110" y="50" width="480" height="20" rx="5" ry="5"
+			class="pipeline-h" />
+		<rect x="110" y="150" width="330" height="20" rx="5" ry="5"
+			class="pipeline-h" />
+		<rect x="570" y="50" width="20" height="160" rx="5" ry="5"
+			class="pipeline-v" />
+		<rect x="430" y="150" width="20" height="60" rx="5" ry="5"
+			class="pipeline-v" />
+		<svg x="250" y="145" id="arrow1">
+			<defs>
+				<linearGradient id="arrow1_7babdec7-3862-4894-b2e9-812604f8c9a2" x1="0%"
+					y1="0%" x2="100%" y2="0%" spreadMethod="pad">
+					<stop offset="0%" stop-color="#000000" stop-opacity="1" />
+					<stop offset="100%" stop-color="#FFFFFF" stop-opacity="1" />
+				</linearGradient>
+				<mask id="arrow1_e963dff1-7674-4110-bcf6-ca07c577642e">
+					<path d="m0,10 l80,0 l0,-10 l15,15 l-15,15 l0,-10 l-80,0"
+						style="stroke:none;fill:url(#arrow1_7babdec7-3862-4894-b2e9-812604f8c9a2);" />
+				</mask>
+			</defs>
+			<g> 
+				<path d="m0,10 l80,0 l0,-10 l15,15 l-15,15 l0,-10 l-80,0"
+					style="stroke:none;fill:#333366;mask:url(#arrow1_e963dff1-7674-4110-bcf6-ca07c577642e);">
+				</path>
+			</g>
+		</svg>
+		
+		<svg x="250" y="45" id="arrow2">
+			<defs>
+				<linearGradient id="arrow2_7babdec7-3862-4894-b2e9-812604f8c9a2" x1="0%"
+					y1="0%" x2="100%" y2="0%" spreadMethod="pad">
+					<stop offset="0%" stop-color="#000000" stop-opacity="1" />
+					<stop offset="100%" stop-color="#FFFFFF" stop-opacity="1" />
+				</linearGradient>
+				<mask id="arrow2_e963dff1-7674-4110-bcf6-ca07c577642e">
+					<path d="m0,10 l80,0 l0,-10 l15,15 l-15,15 l0,-10 l-80,0"
+						style="stroke:none;fill:url(#arrow2_7babdec7-3862-4894-b2e9-812604f8c9a2);" />
+				</mask>
+			</defs>
+			<g> 
+				<path d="m0,10 l80,0 l0,-10 l15,15 l-15,15 l0,-10 l-80,0"
+					style="stroke:none;fill:#333366;mask:url(#arrow2_e963dff1-7674-4110-bcf6-ca07c577642e);">
+				</path>
+			</g>
+		</svg>
+		
+<!-- 		<use xlink:href="#pump" x="20" y="20" /> -->
+		
+		<svg x="20" y="20" id="pump1" class="binding-unit" ntype="basichmi_pump"
+			cus='{"pumpSpeed":"rand_tag5","pumpSwitch":"rand_tag6"}'
+			mt='[{"trigger_field":"pumpSwitch",
+					"matchstatus":{"status":"on",
+									"v1array":[0,200],
+									"cmparray":["cc","cc"],
+									"v2array":[100,400]}},
+				{"trigger_field":"switch",
+					"matchstatus":{"status":"off",
+									"v1array":[-9999999999,100,400],
+									"cmparray":["oo","oo","oo"],
+									"v2array":[0,200,9999999999]}}]'
+			ec='{"pumpon":"pump1_on","pumpoff":"pump1_off"}'>
+			<g>
+    			<path d="m30,80 a40,40 0 1,1 40,0 l10,10 l-60,0 l10,-10"
+					style="stroke:black;stroke-width:2px;fill:none;" />
+    			<circle cx="50" cy="45" r="30"
+					style="fill:none;stroke:black;stroke-width:2px;" />
+    			<g id="pump1_f9f69de0-c1f3-49a0-863f-15ac0573dba5">
+    				<ellipse cx="50" cy="45" rx="5" ry="30"
+						style="fill:none;stroke:black;stroke-width:2px;" />
+    				<ellipse cx="50" cy="45" rx="5" ry="30"
+						style="fill:none;stroke:black;stroke-width:2px;"
+						transform="rotate(45,50,45)" />
+    				<ellipse cx="50" cy="45" rx="5" ry="30"
+						style="fill:none;stroke:black;stroke-width:2px;"
+						transform="rotate(90,50,45)" />
+    				<ellipse cx="50" cy="45" rx="5" ry="30"
+						style="fill:none;stroke:black;stroke-width:2px;"
+						transform="rotate(135,50,45)" />
+					<animateTransform id="pump1_a52995c3-59e1-4b04-b8f6-cd573c43a7c7" 
+						attributeName="transform" type="rotate"
+						from="0,50,45" to="360,50,45" begin="indefinite" dur="2s" fill="freeze"
+						repeatCount="indefinite" />
+    			</g>
+    		</g>
+		</svg>
+		
+<!-- 		<use id ="pump1switch" xlink:href="#switch" x="120" y="10" /> -->
+		<svg x="120" y="10" cus='{"watch_value":"rand_tag1"}'
+			class="binding-unit" ntype="basichmi_switch"
+			mt='[{"trigger_field":"watch_value",
+				"matchstatus":{"status":"on",
+								"v1array":[50],
+								"cmparray":["co"],
+								"v2array":[9999999999]}},
+				{"trigger_field":"watch_value",
+				"matchstatus":{"status":"off",
+								"v1array":[-9999999999],
+								"cmparray":["oo"],
+								"v2array":[50]}}]'
+			ec='{"switchon":"pump1switch_open",
+				"switchoff":"pump1switch_close"}'
+			id="pump1switch">
+			<g> 
+				<rect x="0" y="0" width="100" height="40"
+				style="fill:gray;stroke:black;stroke-width:2px;" />
+				<rect x="5" y="5" width="45" height="30"
+				style="fill:green;stroke:black;stroke-width:2px" /> 
+				<rect x="50" y="5" width="45" height="30"
+				style="fill:red;stroke:black;stroke-width:2px" />
+				<text x="10" y="25">开</text>
+				<text x="60" y="25">关</text>
+				<g id="pump1switch_a6e58d51-9592-4c03-bc31-b747713f092f"> 
+					<rect x="5" y="6" width="45" height="28"
+				style="fill:darkgray;stroke:black;stroke-width:1px;" /> 
+					<line x1="15" y1="10" x2="15" y2="30"
+				style="stroke:black;stroke-width:5px;" /> 
+					<line x1="25" y1="10" x2="25" y2="30"
+				style="stroke:black;stroke-width:5px;" />
+					<line x1="35" y1="10" x2="35" y2="30"
+				style="stroke:black;stroke-width:5px;" /> 
+				</g>
+			</g>
+		</svg>
+<!-- 		<use xlink:href="#pump" x="20" y="120" /> -->
+		<svg x="20" y="120" id="pump2" class="binding-unit" ntype="basichmi_pump" 
+			cus='{"pumpSpeed":"rand_tag3","pumpSwitch":"rand_tag4"}'
+			mt='[{"trigger_field":"pumpSwitch",
+					"matchstatus":{"status":"on",
+									"v1array":[0,200],
+									"cmparray":["cc","cc"],
+									"v2array":[100,400]}},
+				{"trigger_field":"switch",
+					"matchstatus":{"status":"off",
+									"v1array":[-9999999999,100,400],
+									"cmparray":["oo","oo","oo"],
+									"v2array":[0,200,9999999999]}}]'
+			ec='{"pumpon":"pump2_on","pumpoff":"pump2_off"}'>
+			<g>
+    			<path d="m30,80 a40,40 0 1,1 40,0 l10,10 l-60,0 l10,-10"
+					style="stroke:black;stroke-width:2px;fill:none;" />
+    			<circle cx="50" cy="45" r="30"
+					style="fill:none;stroke:black;stroke-width:2px;" />
+    			<g id="pump2_f9f69de0-c1f3-49a0-863f-15ac0573dba5">
+    				<ellipse cx="50" cy="45" rx="5" ry="30"
+						style="fill:none;stroke:black;stroke-width:2px;" />
+    				<ellipse cx="50" cy="45" rx="5" ry="30"
+						style="fill:none;stroke:black;stroke-width:2px;"
+						transform="rotate(45,50,45)" />
+    				<ellipse cx="50" cy="45" rx="5" ry="30"
+						style="fill:none;stroke:black;stroke-width:2px;"
+						transform="rotate(90,50,45)" />
+    				<ellipse cx="50" cy="45" rx="5" ry="30"
+						style="fill:none;stroke:black;stroke-width:2px;"
+						transform="rotate(135,50,45)" />
+					<animateTransform id="pump2_a52995c3-59e1-4b04-b8f6-cd573c43a7c7" 
+						attributeName="transform" type="rotate"
+						from="0,50,45" to="360,50,45" begin="indefinite" dur="2s" fill="freeze"
+						repeatCount="indefinite" />
+    			</g>
+    		</g>
+		</svg>
+<!-- 		<use id ="pump2switch" xlink:href="#switch" x="120" y="120" /> -->
+		<svg x="120" y="120" cus='{"watch_value":"rand_tag2"}'
+			class="binding-unit" ntype="basichmi_switch"
+			mt='[{"trigger_field":"watch_value",
+				"matchstatus":{"status":"on",
+								"v1array":[30],
+								"cmparray":["co"],
+								"v2array":[9999999999]}},
+				{"trigger_field":"watch_value",
+				"matchstatus":{"status":"off",
+								"v1array":[-9999999999],
+								"cmparray":["oo"],
+								"v2array":[30]}}]'
+			ec='{"switchon":"pump2switch_open",
+				"switchoff":"pump2switch_close"}'
+			id="pump2switch">
+		<g> 
+			<rect x="0" y="0" width="100" height="40"
+				style="fill:gray;stroke:black;stroke-width:2px;" />
+			<rect x="5" y="5" width="45" height="30"
+				style="fill:green;stroke:black;stroke-width:2px" /> 
+			<rect x="50" y="5" width="45" height="30"
+				style="fill:red;stroke:black;stroke-width:2px" />
+			<text x="10" y="25">开</text>
+			<text x="60" y="25">关</text>
+			<g id="pump2switch_a6e58d51-9592-4c03-bc31-b747713f092f"> 
+				<rect x="5" y="6" width="45" height="28"
+				style="fill:darkgray;stroke:black;stroke-width:1px;" /> 
+				<line x1="15" y1="10" x2="15" y2="30"
+				style="stroke:black;stroke-width:5px;" /> 
+				<line x1="25" y1="10" x2="25" y2="30"
+				style="stroke:black;stroke-width:5px;" />
+				<line x1="35" y1="10" x2="35" y2="30"
+				style="stroke:black;stroke-width:5px;" /> 
+			</g>
+		</g>
+		</svg>
+		<svg x="400" y="185" id="tank"
+			cus='{"fillPercent":"(rand_tag7%100)/100"}'
+			class="binding-unit" ntype="basichmi_tank"
+			sps='[{"set_prop":"fillFrontColor","set_value":"red"},
+				{"set_prop":"fillBackColor","set_value":"darkgray"}]'
+				>
+			<defs>
+				<linearGradient id="tank_d317e7c5-e5d1-4e8e-a75f-6921cdf5d62c" x2="0%" y2="100%">
+        			<stop offset="0%" stop-color="white">
+        				<animate id="tank_5e6cb560-9ea8-4954-8e87-f79d8303f6ad" attributeName="stop-color" attributeType="XML" to="red" 
+        					begin="indefinite" dur="1s" fill="freeze" repeatCount="1" />
+        				<animate id="tank_e98dd2cc-cdf1-47fc-9cde-7da7d7682f52" attributeName="offset" attributeType="XML" to="0.4" 
+        					begin="indefinite" dur="1s" fill="freeze" repeatCount="1" />
+        			</stop>
+        			<stop offset="0%" stop-color="white" >
+        				<animate id="tank_f98e9dfd-7a0c-4411-a17d-b8b8661792ea" attributeName="stop-color" attributeType="XML" to="green" 
+        					begin="indefinite" dur="1s" fill="freeze" repeatCount="1" />
+        				<animate id="tank_a60f03de-4d9d-4414-81b5-ac67d200400a" attributeName="offset" attributeType="XML" to="0.4" 
+        					begin="indefinite" dur="1s" fill="freeze" repeatCount="1" />
+        			</stop>
+      			</linearGradient>
+			</defs>
+			<g transform="translate(0,15)">
+    			<path
+					d="m10,20 a180,180 0 0,1 200,0 l0,10 l10,0 l0,10 l-10,0 l0,300 l10,0 l0,10 l-10,0 l0,10
+    					a180,180 0 0,1 -200,0 l0,-10 l-10,0 l0,-10 l10,0 l0,-300 l-10,0 l0,-10 l10,0 l0,-10"
+					style="fill:#CCCC99;stroke:black;stroke-width:2px;" />
+    			<ellipse cx="150" cy="190" rx="20" ry="160"
+					style="fill:url(#tank_d317e7c5-e5d1-4e8e-a75f-6921cdf5d62c);stroke:black;stroke-width:2px;" />
+    		</g>
+		</svg>
+		<text x="490" y="210" textLength="50" class="text">水箱</text>
+		<g>
+		<text x="480" y="230" id="fillperc" class="text" 
+			cus='{"text":"(rand_tag7%100)"}'
+			anims='{"flash":{"aColor":"red","bColor":"purple","interval":"1"}}'
+			class="binding-unit" ntype="basichmi_text">00
+		</text>
+		</g>
+		<text x="510" y="230" class="text">%</text>
+	</svg>
+<page name="tom" refreshRate = "6000" id="pagemetas" authItem="{name:page_can,id:4}"/>
+</body>
+</html>
