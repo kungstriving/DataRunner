@@ -1,5 +1,5 @@
 require(['dojo/dom',
-         'nost/Page',
+         'dr/base/Page',
          'dojo/domReady!'],
 	function(dom,Page) {
 		//get the page info

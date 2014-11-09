@@ -1,8 +1,22 @@
 
-require(["dojo/dom","dojo/_base/fx","dojo/fx/easing","dojo/on","dojo/request","dojo/request/notify","dojo/dom-form",
-         "nost/common",
-         "../../js/jquery-2.0.3.js","../../js/jquery.mobile-1.4.2.js","dojo/domReady!"],
-	function(dom, baseFx, easingType, on, request, reqNotify,domForm,
+require(["dojo/dom",
+         "dojo/_base/fx",
+         "dojo/fx/easing",
+         "dojo/on",
+         "dojo/request",
+         "dojo/request/notify",
+         "dojo/dom-form",
+         "dr/base/common",
+         "../../js/jquery-2.1.0.js",
+         "../../js/jquery.mobile-1.4.2.js",
+         "dojo/domReady!"],
+	function(dom, 
+			baseFx, 
+			easingType, 
+			on, 
+			request, 
+			reqNotify,
+			domForm,
 			common) {
 	var loginPanel = dom.byId("loginpanel"),
 		loginButton = dom.byId("loginbtn");
@@ -41,7 +55,7 @@ require(["dojo/dom","dojo/_base/fx","dojo/fx/easing","dojo/on","dojo/request","d
 		//encrypt the password
 		
 		//post data to server
-		var requestURL = common.getContextPath() + "nost";
+		var requestURL = "../../drd";
 		request.post(requestURL, {
 			data:{
 				"action":"pageLogin",
