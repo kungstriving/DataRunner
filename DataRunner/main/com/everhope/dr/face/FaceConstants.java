@@ -16,6 +16,9 @@ public class FaceConstants {
 	 */
 	public static final String CTX_K_PAGES = "pages";
 	
+	/*******************************************************
+	 * session 变量
+	 ******************************************************/
 	/**
 	 * session中的page容器key定义 sepages
 	 */
@@ -25,6 +28,11 @@ public class FaceConstants {
 	 * session中的user对象key定义 user
 	 */
 	public static final String SEN_K_USER = "user";
+	
+	/**
+	 * session中的租户key se-lessee
+	 */
+	public static final String SEN_K_LESSEE = "se-lessee";
 	
 	/************************************************************
 	 * request url keys definition

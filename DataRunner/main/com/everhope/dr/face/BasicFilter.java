@@ -15,7 +15,7 @@ import org.apache.log4j.Logger;
 /**
  * Servlet Filter implementation class BasicFilter
  */
-@WebFilter("/nost/*")
+@WebFilter("/drd/*")
 public class BasicFilter implements Filter {
 
 	private static final Logger logger = Logger.getLogger(BasicFilter.class);

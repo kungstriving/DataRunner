@@ -52,7 +52,12 @@ public class LoadPageServlet extends HttpServlet {
 		User user = (User)session.getAttribute(FaceConstants.SEN_K_USER);
 		//获取到要访问的画面
 		String pageName = request.getParameter(FaceConstants.REQ_K_PAGENAME);
-		String pageAbsPath = request.getServletContext().getRealPath("/pages/" + pageName);
+		//TODO 添加租户
+		String lessee = (String)session.getAttribute(FaceConstants.SEN_K_LESSEE);
+		if (StringUtils.isEmpty(lessee)) {
+			lessee = "user";		//默认为user租户
+		}
+		String pageAbsPath = request.getServletContext().getRealPath("/show/" + lessee + "/"+ pageName + ".html");
 		//首先解析是否有访问该画面的权限
 		String fileContent = user.loadPage(pageAbsPath);
 		

@@ -21,14 +21,14 @@ import com.everhope.dr.models.Page;
  *
  */
 @WebListener
-public class NostInitListener implements ServletContextListener {
+public class DRInitListener implements ServletContextListener {
 
-	private static final Logger logger = Logger.getLogger(NostInitListener.class);
+	private static final Logger logger = Logger.getLogger(DRInitListener.class);
 	
     /**
      * Default constructor. 
      */
-    public NostInitListener() {
+    public DRInitListener() {
     	logger.info("PageLoadListener()");
     }
 

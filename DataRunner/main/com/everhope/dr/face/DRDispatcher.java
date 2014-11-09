@@ -16,20 +16,20 @@ import org.apache.log4j.Logger;
 /**
  * main dispatcher
  */
-@WebServlet("/nost")
-public class NostDispatcher extends HttpServlet {
+@WebServlet("/drd")
+public class DRDispatcher extends HttpServlet {
 	
     /**
 	 * 
 	 */
 	private static final long serialVersionUID = 6487309972038551486L;
 
-	private static final Logger logger = Logger.getLogger(NostDispatcher.class);
+	private static final Logger logger = Logger.getLogger(DRDispatcher.class);
 	
 	/**
      * @see HttpServlet#HttpServlet()
      */
-    public NostDispatcher() {
+    public DRDispatcher() {
         super();
         logger.info("create NostDispatcher");
     }

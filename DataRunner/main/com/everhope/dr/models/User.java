@@ -77,13 +77,13 @@ public class User {
 	 * 当前用户加载画面，如果没有权限访问则返回空字符串
 	 * 如果有权限访问，则返回经过过滤的HTML页面内容
 	 * 
-	 * @param absPagePath
+	 * @param absPagePath 所要加载文件的绝对路径 直到.html
 	 * @return
 	 * @throws IOException 
 	 */
 	public String loadPage(String absPagePath) throws IOException {
 		String fileContent  = "";
-		File htmlFile = new File(absPagePath + "/index.html");
+		File htmlFile = new File(absPagePath);
 		try {
 			Document doc = Jsoup.parse(htmlFile, "UTF-8");
 			Elements elements = doc.select("page");
