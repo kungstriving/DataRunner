@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<title>SmartLight</title>
+
+<link rel="stylesheet" href="./css/dr-base.css" />
+<link rel="stylesheet" href="./show/user/light.css" />
+<script type="text/javascript" src="./js/dojo/dojo.js"
+	data-dojo-config="async:true,has:{'dojo-firebug':true}"></script>
+<script type="text/javascript" src="./show/user/light.js"></script>
+
+</head>
+<body>
+	<svg id="sketchpad" version="1.1" xmlns="http://www.w3.org/2000/svg"
+		viewBox="0,0,2000,500" style="background-color: #ABCDEF" adjust="1">
+		<rect x="5" y="5" width="200" height="300" fill="green" onclick="alertme();"/>
+	</svg>
+	<page name="light" refreshRate = "2000" id="pagemetas" authItem="{name:page_can,id:4}"/>
+	<script type="text/javascript">
+	require(['dojo/dom',
+         'dr/base/Page',
+         'dojo/domReady!'],
+	function(dom,Page) {
+		//get the page info
+		var pageEle = dom.byId("pagemetas");
+		var pageName = pageEle.getAttribute("name");
+		var rate = pageEle.getAttribute("refreshRate");
+		var page = new Page(pageName, rate);
+
+		page.init();
+		console.log("初始化页面 = " + page.toString());
+		page.start();
+	});
+	</script>
+</body>
+</html>

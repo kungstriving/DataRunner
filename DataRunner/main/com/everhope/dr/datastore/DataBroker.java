@@ -36,7 +36,6 @@ public class DataBroker {
 	
 	private static DataBroker singleInstance = null;
 	private final JedisPool jedisPool;
-	private String auth;
 	private Map<String, String> funcTable = new HashMap<>();
 	
 	/**
@@ -52,14 +51,15 @@ public class DataBroker {
 	
 	private DataBroker() {
 		//读取配置文件
-		ResourceBundle bundle = ResourceBundle.getBundle("nostconf");
+		ResourceBundle bundle = ResourceBundle.getBundle("drconf");
 		String host = bundle.getString("db_host");
 		int port = Integer.parseInt(bundle.getString("db_port"));
-		auth = bundle.getString("db_auth");
+		String auth = bundle.getString("db_auth");
 		JedisPoolConfig poolConfig = new JedisPoolConfig();
 		String maxTotal = bundle.getString("db_actives");
 		poolConfig.setMaxTotal(NumberUtils.toInt(maxTotal));
-		jedisPool = new JedisPool(poolConfig, host, port);
+		jedisPool = new JedisPool(poolConfig, host, port,
+				StoreConstants.TIMEOUT_DATA_ACCESS, auth, 0, StoreConstants.DR_CLIENT_NAME);
 	}
 	
 	/**
@@ -70,7 +70,6 @@ public class DataBroker {
 		Jedis jedis = null;
 		try {
 			jedis = jedisPool.getResource();
-			jedis.auth(auth);
 			String shaFuncKey = jedis.scriptLoad(StoreConstants.SCRIPT_GETKEYS_LAGER_TIMEFLAG);
 			logger.info("LARGER_SCRIPT sha1:" + shaFuncKey);
 			funcTable.put(StoreConstants.SCRIPTKEY_GETKEYS_LAGER_TIMEFLAG, shaFuncKey);
@@ -89,7 +88,6 @@ public class DataBroker {
 		Jedis jedis = null;
 		try {
 			jedis = jedisPool.getResource();
-			jedis.auth(auth);
 			
 			jedis.subscribe(new JedisPubSub() {
 				
@@ -116,7 +114,6 @@ public class DataBroker {
 					Jedis jedis = null;
 					try {
 						jedis = jedisPool.getResource();
-						jedis.auth(auth);
 						jedis.publish(StoreConstants.C_LOGIN, msg);
 					} catch (Exception e) {
 						throw e;
@@ -182,7 +179,6 @@ public class DataBroker {
 		
 		try {
 			jedis = jedisPool.getResource();
-			jedis.auth(auth);
 			
 			String userKey = "user:" + username;
 			
@@ -228,7 +224,6 @@ public class DataBroker {
 		
 		try {
 			jedis = jedisPool.getResource();
-			jedis.auth(auth);
 			
 			//遍历所有数据点获取值
 			Pipeline pipe = jedis.pipelined();
@@ -266,7 +261,6 @@ public class DataBroker {
 		Jedis jedis = null;
 		try {
 			jedis = jedisPool.getResource();
-			jedis.auth(auth);
 			
 			String controlChannel = cmd.getControlDS() + StoreConstants.PDE_SEPERATOR + "control";
 			Gson gson = new Gson();
@@ -331,7 +325,6 @@ public class DataBroker {
 		try {
 			String funcKey = funcTable.get(StoreConstants.SCRIPTKEY_GETKEYS_LAGER_TIMEFLAG);
 			jedis = jedisPool.getResource();
-			jedis.auth(auth);
 			
 			List<String> args = new ArrayList<>();
 			args.add(timeFlag);

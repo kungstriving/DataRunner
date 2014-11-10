@@ -7,6 +7,11 @@ define(
 				showSysInfo:function() {
 					alert('sysinfo');
 				},
+				openPage:function(pageName) {
+					console.log("openPage -- " + pageName);
+					var requestURL = "drd";
+					window.location.href = requestURL + "?action=loadPage&pageName=" + pageName;
+				},
 				writeValue:function(tagFullName, pField, pValue) {
 					//发送控制命令请求
 					var controlCmd = {};
@@ -16,7 +21,7 @@ define(
 					var cmdJson = JSON.stringify(controlCmd);
 					
 					//post the request
-					var requestURL = common.getContextPath() + "nost";
+					var requestURL = "drd";
 					console.log("send control command : " + cmdJson);
 					request.post(requestURL, {
 						data:{

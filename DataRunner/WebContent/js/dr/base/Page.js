@@ -7,6 +7,7 @@ define(["dojo/_base/declare",
         "dojo/store/Observable",
         "dojo/query",
         "dojo/dom-attr",
+        "dojo/dom",
         
         "dr/base/common",
         "dr/base/Tag", 
@@ -14,7 +15,9 @@ define(["dojo/_base/declare",
         "dr/base/Expr", 
         "dr/base/DNode", 
         "dr/base/DText", 
-        "dr/base/DNodeFactory"],
+        "dr/base/DNodeFactory",
+        "dr/base/DSystem",
+        "./js/parser.js"],
 	function(declare, 
 			request, 
 			array, 
@@ -22,14 +25,20 @@ define(["dojo/_base/declare",
 			Observable, 
 			query, 
 			domAttr,
+			dom,
+			
 			common, 
 			Tag, 
 			ContUnit, 
-			Expr, DNode, DText, DNodeFactory) {
+			Expr, 
+			DNode, 
+			DText, 
+			DNodeFactory,
+			DSystem) {
 		var clsPage = declare(null, {
 			
 			/****************** fields *****************************/
-			tenantID:"",	//tenant id
+			
 			name:"",		//page name
 			tags:null,		//avoid reference error use null 
 					/**
@@ -57,11 +66,99 @@ define(["dojo/_base/declare",
 			
 			intervalHandle:null,		// page interval handle
 			observeHandle:null,			// observeHandle.cancel() will finish the observing
+			rootPad:null,				// svg 根元素
 			
 			/******************* methods *************************/
+			setPageSize:function(){
+				//获取当前页面的适配类型
+				//0=左右充满；1=上下充满；2=高宽同时适配；3=不适配
+				this.rootPad = dom.byId("sketchpad");
+				var adjustVal = domAttr.get(this.rootPad, "adjust");
+				switch (adjustVal) {
+				case "0":
+					this._fillWidth();
+					break;
+				case "1":
+					this._fillHeight();
+					break;
+				case "2":
+					this._fillBoth();
+					break;
+				case "3":
+					this._fillNone();
+					break;
+				default:
+					this._fillWidth();
+					break;
+				}
+			},
+			_getScreenWidth:function() {
+				var windowWidth = screen.width;
+//				if(browser.versions.iPhone || browser.versions.iPad)
+//					windowWidth =  screen.width;//$(window).width();
+//				else{
+//					windowWidth = screen.width;
+//				}
+				return windowWidth;
+			},
+			_getScreenHeight:function() {
+				var windowHeight = screen.height;
+//				if(browser.versions.iPhone || browser.versions.iPad)
+//					windowHeight =  screen.height;
+//				else{
+//					windowHeight = screen.height;	
+//				}		
+				return windowHeight;
+			},
+			_fillWidth:function() {
+				console.log("_fillWidth");
+				var windowWidth = this._getScreenWidth();	
+				
+				//alert("width:"+windowWidth);
+				var viewBoxVal = this.rootPad.getAttribute("viewBox");
+				var viewBoxWidth = viewBoxVal.split(",")[2];
+				var viewBoxHeight = viewBoxVal.split(",")[3];
+
+				var setWidth = windowWidth;
+				var setHeight = (setWidth * viewBoxHeight) / viewBoxWidth;
+				this.rootPad.setAttribute("width", setWidth);
+				this.rootPad.setAttribute("height", setHeight);
+			},
+			_fillHeight:function() {
+				console.log("_fillHeight");
+				var windowHeight = this._getScreenHeight();	
+				
+				var viewBoxVal = this.rootPad.getAttribute("viewBox");
+				var viewBoxWidth = viewBoxVal.split(",")[2];
+				var viewBoxHeight = viewBoxVal.split(",")[3];
+
+				var setHeight = windowHeight;
+				var setWidth = (setHeight * viewBoxWidth)/viewBoxHeight;
+				this.rootPad.setAttribute("width", setWidth);
+				this.rootPad.setAttribute("height", setHeight);
+			},
+			_fillBoth:function() {
+				console.log("_fillBoth");
+				var windowHeight = this._getScreenHeight();
+				var windowWidth = this._getScreenWidth();
+				
+				this.rootPad.setAttribute("width", windowWidth);
+				this.rootPad.setAttribute("height", windowHeight);
+			},
+			_fillNone:function() {
+				console.log("_fillNone");
+				var viewBoxVal = this.rootPad.getAttribute("viewBox");
+				var viewBoxWidth = viewBoxVal.split(",")[2];
+				var viewBoxHeight = viewBoxVal.split(",")[3];
+
+				this.rootPad.setAttribute("width", viewBoxWidth);
+				this.rootPad.setAttribute("height", viewBoxHeight);
+			},
 			
 			init:function(){
 				var thisPage = this;
+				//set the page size
+				this.setPageSize();
 				//resolve the page content
 				query(".binding-unit").forEach(function(node, index, nodelist) {
 					var cusContent = domAttr.get(node,"cus");	//{x:tag1+tag2,y:tag2-tag3,fill:tag3*3}
@@ -287,14 +384,14 @@ define(["dojo/_base/declare",
 				return JSON.stringify(this.tags);
 			},
 			
-			constructor:function(pName, pRate, pTenant) {
+			constructor:function(pName, pRate) {
 				this.name = pName;
 				this.refreshRate = pRate;
-				this.tenantID = pTenant;
 				this.tags = {};
 				this.exps = [];
 			    // create the initial Observable store
 			    this.expStore = new Observable(new Memory({data: this.exps, idProperty:"exp"}));
+			    window.system = DSystem;		//设置全局系统函数，供用户调用
 			}
 		});
 		

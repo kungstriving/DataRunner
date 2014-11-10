@@ -59,7 +59,7 @@ require(["dojo/dom",
 		request.post(requestURL, {
 			data:{
 				"action":"pageLogin",
-				"lessee":"A",
+				"lessee":"user",		//lessee = user
 				"username":username,
 				"secretPwd":password
 			},

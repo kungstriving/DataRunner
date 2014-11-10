@@ -4,17 +4,17 @@
 <meta charset="UTF-8" name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
 <title>Tom Demo</title>
 
-<link rel="stylesheet" href="./css/nost.css" />
+<link rel="stylesheet" href="./css/dr-base.css" />
 <link rel="stylesheet" href="./show/user/tom.css" />
 <script type="text/javascript" src="./js/dojo/dojo.js"
 	data-dojo-config="async:true,has:{'dojo-firebug':true}"></script>
-<script type="text/javascript" src="./js/parser.js"></script>
 <script type="text/javascript" src="./show/user/tom.js"></script>
 
 </head>
 <body>
 	<svg id="sketchpad" version="1.1" xmlns="http://www.w3.org/2000/svg"
-		viewBox="0 0 640 1136" style="background-color: #ABCDEF">
+		viewBox="0,0,640,1136" style="background-color: #ABCDEF" adjust="0">
+		<!-- adjust 0=左右充满；1=上下充满；2=高宽同时适配；3=不适配 -->
 		<defs>
 			<filter id="shadowed" x="0" y="0" width="150%" height="180%"
 			filterUnits="objectBoundingBox">
@@ -282,5 +282,21 @@
 		<text x="510" y="230" class="text">%</text>
 	</svg>
 <page name="tom" refreshRate = "6000" id="pagemetas" authItem="{name:page_can,id:4}"/>
+<script type="text/javascript">
+require(['dojo/dom',
+         'dr/base/Page',
+         'dojo/domReady!'],
+	function(dom,Page) {
+		//get the page info
+		var pageEle = dom.byId("pagemetas");
+		var pageName = pageEle.getAttribute("name");
+		var rate = pageEle.getAttribute("refreshRate");
+		var page = new Page(pageName, rate);
+
+		page.init();
+		console.log("初始化页面 = " + page.toString());
+		page.start();
+});
+</script>
 </body>
 </html>

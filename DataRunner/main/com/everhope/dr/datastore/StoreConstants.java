@@ -36,6 +36,16 @@ public class StoreConstants {
 	public static final int CONFIG_MAX_ACTIVE = 8;
 	
 	/**
+	 * 超时 30秒
+	 */
+	public static final int TIMEOUT_DATA_ACCESS = 30000;
+	
+	/**
+	 * 数据连接名称 dr-client
+	 */
+	public static final String DR_CLIENT_NAME = "dr-client";
+	
+	/**
 	 * DataEngine中key分隔符: 用户名称和数据源名称不能包含'_' ':'
 	 */
 	public static final String PDE_SEPERATOR = ":";
