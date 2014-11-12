@@ -41,6 +41,10 @@ public class SessionPage {
 		this.updateFlag = pUpdateFlag;
 	}
 	
+	public String getLessee() {
+		return this.ctxPage.getLessee();
+	}
+	
 	/**
 	 * 更新画面，从datastore获取最新数据
 	 * 
@@ -67,13 +71,18 @@ public class SessionPage {
 		int maxTimeFlag = getUpdateFlag();
 		List<Tag> tags = getTags();
 		List<UpdatedTag> needUpdateTags = new ArrayList<>();
+		String lessee = this.getLessee();
 		
-		//提取需要更新的Tag点，并计算最大timeflag
+		//提取需要更新的Tag点，并计算最大 updatecount
 		for (Tag tag : tags) {
-			if (newValues.containsKey(tag.getDBTagName())) {
+			StringBuilder sb = new StringBuilder();
+			sb.append(lessee).append(StoreConstants.PDE_SEPERATOR)
+				.append(tag.getDBTagName());
+			String tagDBName = sb.toString();
+			if (newValues.containsKey(tagDBName)) {
 				
 				Map<String, String> props = 
-						newValues.get(tag.getDBTagName());
+						newValues.get(tagDBName);
 				
 				//如果包含该tag名称，则说明需要更新
 				UpdatedTag uTag = new UpdatedTag();

@@ -14,7 +14,7 @@ public class FaceConstants {
 	/**
 	 * context中的pages=Map<String, Page>
 	 */
-	public static final String CTX_K_PAGES = "pages";
+	public static final String CTX_K_PAGES = "ctxpages";
 	
 	/*******************************************************
 	 * session 变量
@@ -52,6 +52,11 @@ public class FaceConstants {
 	 * tags key in url : tags
 	 */
 	public static final String REQ_K_TAGS = "tags";
+	
+	/**
+	 * lessee key : lessee
+	 */
+	public static final String REQ_K_LESSEE = "lessee";
 	
 	/**
 	 * page refresh time flag

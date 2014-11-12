@@ -10,17 +10,28 @@ import java.util.List;
  */
 public class Page {
 
+	private String lessee;
 	private String pageName;
 	private List<Tag> tags;
 //	private int refreshFlag = 0;
 	
-	public Page() {}
+	public Page(String pLessee, String pPageName) {
+		this.lessee = pLessee;
+		this.pageName = pPageName;
+	}
 	
 	public Page(String pPageName, List<Tag> pTags) {
 		this.pageName = pPageName;
 		this.tags = pTags;
 	}
 
+	public String getLessee() {
+		return lessee;
+	}
+
+	public void setLessee(String lessee) {
+		this.lessee = lessee;
+	}
 
 	public String getPageName() {
 		return pageName;

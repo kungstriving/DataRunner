@@ -20,9 +20,9 @@ public class StoreConstants {
 			+ "local index=1;"
 			+ "local resultKeys={};"
 			+ "for k,v in ipairs(KEYS) do "
-			+ "	local fieldExist = redis.call('hexists', v, 'updateFlag');"
+			+ "	local fieldExist = redis.call('hexists', v, 'uc');"
 			+ "	if fieldExist == 1 then "
-			+ "		local tmpTimeFlag = redis.call('hget', v, 'updateFlag');"
+			+ "		local tmpTimeFlag = redis.call('hget', v, 'uc');"
 			+ "		if (tmpTimeFlag+0) > (ARGV[1]+0) then "
 			+ "			table.insert(resultKeys,v);"
 			+ "		end;"
@@ -36,9 +36,9 @@ public class StoreConstants {
 	public static final int CONFIG_MAX_ACTIVE = 8;
 	
 	/**
-	 * 超时 30秒
+	 * 超时 3秒
 	 */
-	public static final int TIMEOUT_DATA_ACCESS = 30000;
+	public static final int TIMEOUT_DATA_ACCESS = 3000;
 	
 	/**
 	 * 数据连接名称 dr-client
@@ -196,13 +196,13 @@ public class StoreConstants {
 	 * DB中的hash field定义
 	 *********************************************************/
 	
-	public static final String F_TAG_VALUE = "value";
+	public static final String F_TAG_VALUE = "v";
 	
-	public static final String F_TAG_QUALITY = "quality";
+	public static final String F_TAG_QUALITY = "q";
 	
-	public static final String F_TAG_TIMESTAMP = "timestamp";
+	public static final String F_TAG_TIMESTAMP = "t";
 	
-	public static final String F_TAG_UPDATEFLAG = "updateFlag";
+	public static final String F_TAG_UPDATEFLAG = "uc";
 	
 
 }

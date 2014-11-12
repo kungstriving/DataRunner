@@ -14,10 +14,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import com.everhope.dr.face.utils.FaceCommonUtils;
 import com.everhope.dr.models.Page;
+import com.everhope.dr.models.PageContainer;
 import com.everhope.dr.models.SessionPage;
 import com.everhope.dr.models.Tag;
 import com.google.gson.Gson;
@@ -64,6 +66,12 @@ public class RegisterPageServlet extends HttpServlet {
 		
 		//获取画面名称
 		String pageName = request.getParameter(FaceConstants.REQ_K_PAGENAME);
+		//获取租户
+		String lessee = request.getParameter(FaceConstants.REQ_K_LESSEE);
+		//TODO 租户为空，默认添加user
+		if (StringUtils.isEmpty(lessee)) {
+			lessee = "user";
+		}
 		//获取注册点json字符串
 		String tagsJson = request.getParameter(FaceConstants.REQ_K_TAGS);
 		
@@ -75,12 +83,11 @@ public class RegisterPageServlet extends HttpServlet {
 		List<Tag> regTags = resolveTags(tagsJson);
 		
 		//check if the system already load this page
-		Map<String, Page> container = (Map<String, Page>)getServletContext().getAttribute(FaceConstants.CTX_K_PAGES);
-		Page page = container.get(pageName);
+		PageContainer<Page> container = (PageContainer<Page>)getServletContext().getAttribute(FaceConstants.CTX_K_PAGES);
+		Page page = container.getByNameAndLessee(lessee, pageName);
 		if (page == null) {
-			page = new Page();
-			page.setPageName(pageName);
-			container.put(pageName, page);		//加入context中
+			page = new Page(lessee, pageName);
+			container.addPage(page);
 		}
 		//更新当前画面所有tag点
 		page.setTags(regTags);
@@ -100,7 +107,7 @@ public class RegisterPageServlet extends HttpServlet {
 		if (sessionPage == null) {
 			//如果当前session无该页面对象 新建page并加入
 			//用已有的context page 构建sessionpage对象
-			SessionPage regPage = new SessionPage(container.get(pageName));
+			SessionPage regPage = new SessionPage(container.getByNameAndLessee(lessee, pageName));
 			seContainer.put(pageName, regPage);
 		}
 		

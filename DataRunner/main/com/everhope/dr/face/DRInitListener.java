@@ -2,11 +2,8 @@ package com.everhope.dr.face;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Locale;
-import java.util.Map;
 
-import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
@@ -18,6 +15,7 @@ import com.everhope.dr.datastore.DataBroker;
 import com.everhope.dr.face.utils.I18nMessages;
 import com.everhope.dr.models.Lessee;
 import com.everhope.dr.models.Page;
+import com.everhope.dr.models.PageContainer;
 
 /**
  * Nost System listener
@@ -42,11 +40,11 @@ public class DRInitListener implements ServletContextListener {
     public void contextInitialized(ServletContextEvent ctxEve) {
     	logger.info("DR starting...");
     	
-    	//添加context画面容器
-    	Map<String, Page> pageMap = new HashMap<String, Page>();
-    	
-    	ServletContext context = ctxEve.getServletContext();
-    	context.setAttribute(FaceConstants.CTX_K_PAGES, pageMap);
+		//获取页面容器
+		PageContainer<Page> pageContainer = new PageContainer<>();
+		pageContainer.init();
+		//添加页面容器到系统context中
+		ctxEve.getServletContext().setAttribute(FaceConstants.CTX_K_PAGES, pageContainer);
     	
 		//添加数据库初始函数
 		DataBroker broker = DataBroker.getInstance();

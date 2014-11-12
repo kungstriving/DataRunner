@@ -38,6 +38,7 @@ public class DataBroker {
 	private static DataBroker singleInstance = null;
 	private final JedisPool jedisPool;
 	private Map<String, String> funcTable = new HashMap<>();
+	private boolean isScriptLoaded = false;	//脚本是否已加载
 	
 	/**
 	 * 获取单例对象
@@ -111,9 +112,12 @@ public class DataBroker {
 		Jedis jedis = null;
 		try {
 			jedis = jedisPool.getResource();
+			
 			String shaFuncKey = jedis.scriptLoad(StoreConstants.SCRIPT_GETKEYS_LAGER_TIMEFLAG);
 			logger.info("LARGER_SCRIPT sha1:" + shaFuncKey);
 			funcTable.put(StoreConstants.SCRIPTKEY_GETKEYS_LAGER_TIMEFLAG, shaFuncKey);
+			
+			this.isScriptLoaded = true;
 		} catch (Exception e) {
 			throw e;
 		} finally {
@@ -332,8 +336,10 @@ public class DataBroker {
 		//抽取所有点名称，这些点名称可以在DB中找到
 		List<Tag> tagList = page.getTags();
 		List<String> tagNames = new ArrayList<>();
+		String lessee = page.getLessee();
 		for (Tag tag : tagList) {
-			tagNames.add(tag.getDBTagName());
+			String realTagName = lessee + StoreConstants.PDE_SEPERATOR + tag.getDBTagName();
+			tagNames.add(realTagName);
 		}
 
 		//获取timeflag满足条件的keys
@@ -369,7 +375,7 @@ public class DataBroker {
 			
 			List<String> args = new ArrayList<>();
 			args.add(timeFlag);
-			if (!jedis.scriptExists(funcKey)) {
+			if (!isScriptLoaded) {
 				//if script no exist
 				//load it
 				jedis.scriptLoad(StoreConstants.SCRIPT_GETKEYS_LAGER_TIMEFLAG);

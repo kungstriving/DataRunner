@@ -16,12 +16,15 @@ public class Tag {
 	private String tagName;
 	
 	/**
-	 * 获取DB中的tag 点表示 tag:DS:TagName
+	 * 获取DB中的实时数据tag 点表示 data:real:dsName:TagName
+	 * 注：确实最前面的租户部分
 	 * @return
 	 */
 	public String getDBTagName() {
-		return StoreConstants.PDE_TAG_KEY + StoreConstants.PDE_SEPERATOR
-				+ this.ds + StoreConstants.PDE_SEPERATOR + this.tagName;
+		return StoreConstants.RK_DATA + StoreConstants.PDE_SEPERATOR
+				+ StoreConstants.RK_DATA_REAL + StoreConstants.PDE_SEPERATOR
+				+ ds + StoreConstants.PDE_SEPERATOR
+				+ tagName;
 	}
 	
 	/**
