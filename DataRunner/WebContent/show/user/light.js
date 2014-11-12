@@ -1,3 +1,3 @@
 function alertme() {
-	system.openPage("tom");
+	sys.openPage("tom");
 }

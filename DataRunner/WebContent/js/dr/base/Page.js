@@ -391,7 +391,8 @@ define(["dojo/_base/declare",
 				this.exps = [];
 			    // create the initial Observable store
 			    this.expStore = new Observable(new Memory({data: this.exps, idProperty:"exp"}));
-			    window.system = DSystem;		//设置全局系统函数，供用户调用
+			    
+			    window.sys = DSystem;		//设置全局系统函数，供用户调用
 			}
 		});
 		

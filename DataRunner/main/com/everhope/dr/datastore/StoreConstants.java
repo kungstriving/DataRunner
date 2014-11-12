@@ -55,9 +55,132 @@ public class StoreConstants {
 	 */
 	public static final String PDE_TAG_KEY = "tag";
 	
-	/************************************************************
-	 * DB中的key定义
-	 *************************************************************/
+	/****************************************************************
+	 * 数据存储中各种key和通道定义 rk=redis key; rkp=redis key prop;
+	 **************************************************************/
+	///////////////////////////// sys //////////////////////////////
+	/**
+	 * 系统key前缀 sys
+	 */
+	public static final String RK_SYS = "sys";
+	/**
+	 * 租户key lessee
+	 */
+	public static final String RK_LESSEE = "lessee";
+	
+	/**
+	 * 所有租户key alllessees
+	 */
+	public static final String RK_ALLLESSEES = "alllessees";
+	
+	/**
+	 * 租户详情key lesseeinfo
+	 */
+	public static final String RK_LESSEEINFO = "lesseeinfo";
+	
+	/**
+	 * 全局刷新计数 globaluc
+	 */
+	public static final String RK_GUC = "globaluc";
+	
+	///////////////////////// data ////////////////////////////////////
+	
+	/**
+	 * 数据前缀 data
+	 */
+	public static final String RK_DATA = "data";
+	
+	/**
+	 * 数据代理 da
+	 */
+	public static final String RK_DA = "da";
+	
+	/**
+	 * 所有数据源 allsources
+	 */
+	public static final String RK_ALLDA = "allsources";
+	
+	/**
+	 * 数据代理详情 dainfo
+	 */
+	public static final String RK_DAINFO = "dainfo";
+	
+	/**
+	 * DB中的Tag key: tag
+	 */
+	public static final String RK_TAG = "tag";
+	
+	/**
+	 * 数据代理下所有点 datags
+	 */
+	public static final String RK_DATAGS = "datags";
+	
+	/**
+	 * 实时数据 real
+	 */
+	public static final String RK_DATA_REAL = "real";
+	
+	/**
+	 * 实时数据value属性 value
+	 */
+	public static final String RKP_TAG_VALUE = "value";
+	
+	/**
+	 * 实时数据updatecount
+	 */
+	public static final String RKP_TAG_UC = "updatecount";
+	
+	/**
+	 * 创建时间 yyyy-MM-dd HH:mm:ss
+	 */
+	public static final String RKP_CREATE_DATE = "createdate";
+	
+	/**
+	 * 描述 desc
+	 */
+	public static final String RKP_DESC = "desc";
+	
+	////////////////////////// auth //////////////////////////////////
+	
+	/**
+	 * 权限前缀 auth
+	 */
+	public static final String RK_AUTH = "auth";
+	
+	/**
+	 * 所有群组 groups
+	 */
+	public static final String RK_GROUPS = "groups";
+	
+	/**
+	 * 群组成员 groupmem
+	 */
+	public static final String RK_GROUPMEM = "groupmem";
+	
+	public static final String RK_USERS = "users";
+	
+	public static final String RK_USERINFO = "userinfo";
+	
+	public static final String RK_USER_GROUPS = "usergroups";
+	
+	public static final String RK_AUTHITEMS = "authitems";
+	
+	/**
+	 * 授权项详情 authinfo
+	 */
+	public static final String RK_AUTHINFO = "authinfo";
+	
+	/**
+	 * 授权群组关系 authrel
+	 */
+	public static final String RK_AUTHREL = "authrel";
+	
+	////////////////////// channel //////////////////////////////
+	
+	/**
+	 * 监听通道 agent
+	 */
+	public static final String RC_AGENT = "agent";
 	
 	/**
 	 * 登录通道

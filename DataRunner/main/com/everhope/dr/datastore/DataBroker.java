@@ -18,6 +18,7 @@ import redis.clients.jedis.Pipeline;
 import redis.clients.jedis.Response;
 
 import com.everhope.dr.models.AuthItem;
+import com.everhope.dr.models.Lessee;
 import com.everhope.dr.models.SessionPage;
 import com.everhope.dr.models.Tag;
 import com.everhope.dr.models.User;
@@ -60,6 +61,46 @@ public class DataBroker {
 		poolConfig.setMaxTotal(NumberUtils.toInt(maxTotal));
 		jedisPool = new JedisPool(poolConfig, host, port,
 				StoreConstants.TIMEOUT_DATA_ACCESS, auth, 0, StoreConstants.DR_CLIENT_NAME);
+	}
+	
+	/**
+	 * 创建租户
+	 * 
+	 * @param lessee
+	 * @throws Exception
+	 */
+	public void createLessee(Lessee lessee) throws Exception {
+
+		Jedis jedis = null;
+		try {
+
+			jedis = jedisPool.getResource();
+			
+			//添加Lessee info
+			String lesseeInfoKey = StoreConstants.RK_SYS + StoreConstants.PDE_SEPERATOR
+					+ StoreConstants.RK_LESSEE + StoreConstants.PDE_SEPERATOR
+					+ StoreConstants.RK_LESSEEINFO + StoreConstants.PDE_SEPERATOR
+					+ lessee.getName();
+
+			jedis.hmset(lesseeInfoKey, lessee.toStoreMap());
+			
+			//添加租户集合
+			String setLesseeKey = StoreConstants.RK_SYS + StoreConstants.PDE_SEPERATOR
+					+ StoreConstants.RK_LESSEE + StoreConstants.PDE_SEPERATOR
+					+ StoreConstants.RK_ALLLESSEES;
+			jedis.sadd(setLesseeKey, lessee.getName());
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			if (jedis != null) {
+				try {
+					jedisPool.returnResource(jedis);
+				} catch (Exception e) {
+					logger.error(e.getMessage());
+					jedisPool.returnBrokenResource(jedis);
+				}
+			}
+		}
 	}
 	
 	/**

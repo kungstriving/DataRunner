@@ -1,5 +1,7 @@
 package com.everhope.dr.face;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -14,6 +16,7 @@ import org.apache.log4j.Logger;
 
 import com.everhope.dr.datastore.DataBroker;
 import com.everhope.dr.face.utils.I18nMessages;
+import com.everhope.dr.models.Lessee;
 import com.everhope.dr.models.Page;
 
 /**
@@ -37,7 +40,7 @@ public class DRInitListener implements ServletContextListener {
      * @see ServletContextListener#contextInitialized(ServletContextEvent)
      */
     public void contextInitialized(ServletContextEvent ctxEve) {
-    	logger.info("NOST starting...");
+    	logger.info("DR starting...");
     	
     	//添加context画面容器
     	Map<String, Page> pageMap = new HashMap<String, Page>();
@@ -47,9 +50,19 @@ public class DRInitListener implements ServletContextListener {
     	
 		//添加数据库初始函数
 		DataBroker broker = DataBroker.getInstance();
-		//加载系统函数
+		
 		try {
+			//加载系统函数
 			broker.loadScripts();
+			
+			//添加初始租户 user
+			Lessee lessee = new Lessee();
+			lessee.setName("user");
+			lessee.setDesc("默认租户");
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			lessee.setCreateDate(sdf.format(new Date()));
+			broker.createLessee(lessee);
+			
 		} catch (Exception e) {
 			logger.fatal(e.getMessage());
 			logger.fatal(ExceptionUtils.getStackTrace(e));
@@ -60,9 +73,10 @@ public class DRInitListener implements ServletContextListener {
 		//初始化国际化消息对象
 		I18nMessages.init(Locale.getDefault());
 		
+		//TODO 加入初始租户
     	//loadServerPages(pageMap, context);
     	
-    	logger.info("NOST started");
+    	logger.info("DR started");
     }
 
 //	private void loadServerPages(Map<String, Page> pageMap,
