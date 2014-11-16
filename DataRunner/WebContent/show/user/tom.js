@@ -15,3 +15,7 @@ function pump2switch_open(system) {
 function pump2switch_close(system) {
 	alert('pump2switch-close');
 }
+
+function gotoLight() {
+	sys.openPage("light");
+}

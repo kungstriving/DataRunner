@@ -8,6 +8,9 @@ define(["dojo/_base/declare",
         "dojo/query",
         "dojo/dom-attr",
         "dojo/dom",
+        "dojo/on",
+        "dojox/gesture/swipe",
+        "dojox/gesture/tap",
         
         "dr/base/common",
         "dr/base/Tag", 
@@ -17,7 +20,9 @@ define(["dojo/_base/declare",
         "dr/base/DText", 
         "dr/base/DNodeFactory",
         "dr/base/DSystem",
-        "./js/parser.js"],
+        
+        "./js/parser.js",
+        "./js/jquery-2.1.0.js"],
 	function(declare, 
 			request, 
 			array, 
@@ -26,6 +31,9 @@ define(["dojo/_base/declare",
 			query, 
 			domAttr,
 			dom,
+			on,
+			swipe,
+			tap,
 			
 			common, 
 			Tag, 
@@ -72,7 +80,7 @@ define(["dojo/_base/declare",
 			setPageSize:function(){
 				//获取当前页面的适配类型
 				//0=左右充满；1=上下充满；2=高宽同时适配；3=不适配
-				this.rootPad = dom.byId("sketchpad");
+				
 				var adjustVal = domAttr.get(this.rootPad, "adjust");
 				switch (adjustVal) {
 				case "0":
@@ -154,11 +162,40 @@ define(["dojo/_base/declare",
 				this.rootPad.setAttribute("width", viewBoxWidth);
 				this.rootPad.setAttribute("height", viewBoxHeight);
 			},
-			
+			_swipeH:function(evt) {
+				console.log("swipe~~~~~~~~~~~~~~~~");
+				return true;
+			},
+			_swipeE:function(evt) {
+				if (evt.dx >= 0) {
+					alert('right');
+					console.log('right');
+				} else {
+					alert('left');
+					console.log('left');
+				}
+				if (evt.dy >= 0) {
+					alert('down');
+					console.log('down');
+				} else {
+					alert('up');
+					console.log('up');
+				}
+				return true;
+			},
+			_tapOn:function(evt) {
+				console.log('tap');
+				return true;
+			},
 			init:function(){
 				var thisPage = this;
+				this.rootPad = dom.byId("sketchpad");
 				//set the page size
 				this.setPageSize();
+				//register the event
+				on(this.rootPad, swipe, this._swipeH);
+				on(this.rootPad, swipe.end, this._swipeE);
+				on(this.rootPad, tap, this._tapOn);
 				//resolve the page content
 				query(".binding-unit").forEach(function(node, index, nodelist) {
 					var cusContent = domAttr.get(node,"cus");	//{x:tag1+tag2,y:tag2-tag3,fill:tag3*3}
