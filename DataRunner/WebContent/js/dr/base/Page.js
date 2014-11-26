@@ -162,40 +162,14 @@ define(["dojo/_base/declare",
 				this.rootPad.setAttribute("width", viewBoxWidth);
 				this.rootPad.setAttribute("height", viewBoxHeight);
 			},
-			_swipeH:function(evt) {
-				console.log("swipe~~~~~~~~~~~~~~~~");
-				return true;
-			},
-			_swipeE:function(evt) {
-				if (evt.dx >= 0) {
-					alert('right');
-					console.log('right');
-				} else {
-					alert('left');
-					console.log('left');
-				}
-				if (evt.dy >= 0) {
-					alert('down');
-					console.log('down');
-				} else {
-					alert('up');
-					console.log('up');
-				}
-				return true;
-			},
-			_tapOn:function(evt) {
-				console.log('tap');
-				return true;
-			},
+
+			
 			init:function(){
 				var thisPage = this;
 				this.rootPad = dom.byId("sketchpad");
 				//set the page size
 				this.setPageSize();
-				//register the event
-				on(this.rootPad, swipe, this._swipeH);
-				on(this.rootPad, swipe.end, this._swipeE);
-				on(this.rootPad, tap, this._tapOn);
+				
 				//resolve the page content
 				query(".binding-unit").forEach(function(node, index, nodelist) {
 					var cusContent = domAttr.get(node,"cus");	//{x:tag1+tag2,y:tag2-tag3,fill:tag3*3}
@@ -204,8 +178,10 @@ define(["dojo/_base/declare",
 					//get the ntype property from the node
 					var nodeType = domAttr.get(node,"ntype");
 					//create the DNode from the factory
+					//关于各个具体对象的mt/ec/anims 等的处理在各自对象中完成，这里只负责元素属性和表达式刷新值
 					var nostNode = DNodeFactory.getNostNodeByType(nodeType, node);
-//					var nostNode = new DText(node, node.nodeName,nodeName,nodeID);
+
+					//首先处理所有属性对应的表达式
 					var cusJson = JSON.parse(cusContent); 
 					
 					for(var field in cusJson) {

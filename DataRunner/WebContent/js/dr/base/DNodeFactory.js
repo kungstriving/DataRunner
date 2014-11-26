@@ -1,8 +1,11 @@
 //define the NostNodeFactory module
 
 define(["dr/base/common","dr/base/DSwitch","dr/base/DText","dr/base/DPump","dr/base/DTank",
+        "dr/base/light/DLight",
         "dojo/dom-attr"],
-	function(common,DSwitch,DText,DPump,DTank,domAttr) {
+	function(common,DSwitch,DText,DPump,DTank,
+			DLight,
+			domAttr) {
 		return {
 			
 			/****************** fields *****************************/
@@ -36,6 +39,15 @@ define(["dr/base/common","dr/base/DSwitch","dr/base/DText","dr/base/DPump","dr/b
 					tankObj.handleAnimateObjs();
 					tankObj.handleSetProps();
 					return tankObj;
+				}
+			},
+			light:{
+				"light":function(pNode, pDType, pNodeName, pNodeID) {
+					var lightObj = new DLight(pNode, pDType, pNodeName, pNodeID);
+					lightObj.handleEvent();
+					lightObj.handleMatchTable();
+					
+					return lightObj;
 				}
 			},
 			/******************* methods *************************/

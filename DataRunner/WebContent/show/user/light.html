@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
 <head>
 <meta charset="UTF-8" name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
@@ -16,27 +16,55 @@
 		viewBox="0,0,1348,899" style="background-color: #ABCDEF" adjust="1">
 		<!-- defs -->
 		<defs>
-         	<radialGradient id="rg" 
-            	cx="50%" cy="50%"
-            	fx="50%" fy="50%"
-            	r="50%"
-            	spreadMethod="pad" >
-                <stop offset="50%" stop-color="#ffff00" stop-opacity="1" />
-            	<stop offset="70%" stop-color="#aaaa00" stop-opacity="1" />
-            	<stop offset="90%" stop-color="#999900" stop-opacity="1" />
-        	</radialGradient>
-        	<filter id="brightness">
-            	<feGaussianBlur in="SourceGraphic" stdDeviation="5" result="blurout"/>
-            	<feComponentTransfer in="blurout" result="r">
-                	<feFuncR type="linear" slope="0"/>
-                	<feFuncG type="linear" slope="0"/>
-                	<feFuncB type="linear" slope="1"/>
-            	</feComponentTransfer>
-        	</filter>
+
     	</defs>
     	
-    	<!-- elements -->
+    	<!-- main elements -->
+    	<!-- the background -->
 		<image x="0" y="0" width="1348" height="899" xlink:href="./show/user/images/warehouse.jpg" ></image>
+		<!-- the light element -->
+		<svg x="150" y="150" id="light1"
+			class="binding-unit" ntype="light_light"
+			cus='{"light_color":"rand_tag3","light_bright":"rand_tag2","power":"rand_tag1"}'
+			mt='[{"trigger_field":"light_color",
+				"matchstatus":{"statusarr":["red","yellow"],
+								"v1array":[-9999999999,50],
+								"cmparray":["oc","oc"],
+								"v2array":[50,9999999999]}},
+				{"trigger_field":"light_bright",
+				"matchstatus":{"statusarr":["1","2","3","4","5"],
+								"v1array":[-9999999999,10,20,30,40],
+								"cmparray":["oc","oc","oc","oc","oc"],
+								"v2array":[10,20,30,40,9999999999]}},
+				{"trigger_field":"power",
+				"matchstatus":{"statusarr":["on","off"],
+								"v1array":[-9999999999,50],
+								"cmparray":["oc","oc"],
+								"v2array":[50,9999999999]}}]'
+			ec='{"power_on":"light1_power_on"}'>
+			<defs>
+				<radialGradient id="rg" cx="50%" cy="50%" fx="50%" fy="50%"
+					r="50%" spreadMethod="pad">
+            		<stop offset="50%" stop-color="#ffff00" stop-opacity="1" />
+            		<stop offset="70%" stop-color="#aaaa00" stop-opacity="1" />
+            		<stop offset="90%" stop-color="#999900" stop-opacity="1" />
+        		</radialGradient>
+        		<filter id="brightness">
+            		<feGaussianBlur in="SourceGraphic" stdDeviation="5"
+						result="blurout" />
+            		<feComponentTransfer in="blurout" result="r">
+                		<feFuncR type="linear" slope="1" />
+                		<feFuncG type="linear" slope="1" />
+                		<feFuncB type="linear" slope="1" />
+            		</feComponentTransfer>
+        		</filter>
+			</defs>
+	
+			<circle cx="50" cy="50" r="50"
+				style="stroke-width:0;fill:url(#rg);filter:url(#brightness)" />
+		</svg>
+		
+		<!-- 
 		<circle cx="200" cy="200" r="50" 
 			onclick="showSelectionInfo();"
 			style="
@@ -44,8 +72,8 @@
 				fill:url(#rg);
 				filter:url(#brightness)" 
 					/>
-		
-		<!-- other elements -->
+		 -->
+		<!-- selection obj 
 		<circle cx="200" cy="135" r="15" style="fill:red;stroke:white;visibility:hidden;" id="lightbox" >
 			<animate attributeName="cy" attributeType="XML"
              from="150"  to="135"
@@ -55,21 +83,37 @@
              values="0;1;0" dur="1s"
              fill="freeze" repeatCount="10"/>
 		</circle>
+		-->
 	</svg>
+	<!-- bottom control panel -->
 	<div style="position:fixed;width:340px;height:50px;bottom:10px;right:10px;background:gray;" >
 	</div>
-	<!-- TODO 添加一个自定义标签 表明当前特殊画面类型 -->
-	<page name="light" refreshRate = "2000" id="pagemetas" authItem="{name:page_can,id:4}"/>
+	
+	<!-- page type=CommonPage / LightPage  -->
+	<page name="light" refreshRate="2000" id="pagemetas_426f5e56-f07a-4cbc-a226-c052d646a830" 
+		type="LightPage" authItem="{name:page_can,id:4}"/>
 	<script type="text/javascript">
 	require(['dojo/dom',
          'dr/base/Page',
+         'dr/base/light/DLightPage',
          'dojo/domReady!'],
-	function(dom,Page) {
+	function(dom,Page,DLightPage) {
 		//get the page info
-		var pageEle = dom.byId("pagemetas");
-		var pageName = pageEle.getAttribute("name");
-		var rate = pageEle.getAttribute("refreshRate");
-		var page = new Page(pageName, rate);
+		var pageEle = dom.byId("pagemetas_426f5e56-f07a-4cbc-a226-c052d646a830");
+		var pageName = pageEle.getAttribute("name"),
+			rate = pageEle.getAttribute("refreshRate"),
+			pageType = pageEle.getAttribute("type");
+		var page = null;
+		switch (pageType) {
+		case "CommonPage":
+			page = new Page(pageName, rate);
+			break;
+		case "LightPage":
+			page = new DLightPage(pageName, rate);
+			break;
+		default:
+			break;
+		}
 
 		page.init();
 		console.log("初始化页面 = " + page.toString());

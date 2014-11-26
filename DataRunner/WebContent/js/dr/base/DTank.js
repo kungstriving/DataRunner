@@ -85,21 +85,21 @@ define(["dojo/_base/declare",
 				this.animFrontStopOffset.beginElement();
 			},
 			
+			/**
+			 * 填充前景色属性
+			 */
 			fillFrontColor:function(newVal) {
 				domAttr.set(this.animFrontStopColor, "to", newVal);
 				this.animFrontStopColor.beginElement();
 			},
-			
+			/**
+			 * 填充背景色属性
+			 */
 			fillBackColor:function(newVal) {
 				domAttr.set(this.animBackStopColor, "to", newVal);
 				this.animBackStopColor.beginElement();
 			},
 			
 			///////////////////////////元素动画////////////////////////////////
-			
-			//////////////////////////////////// 设置属性值方法///////////////
-			set:function(field, newValue) {
-				this[field](newValue);
-			}
 		});
 });
