@@ -11,7 +11,6 @@ define(
 					} else {
 						returnPath = pathname.substring(0, indexPages);
 					}
-					console.log("get context path " + returnPath);
 					return returnPath;
 				},
 				

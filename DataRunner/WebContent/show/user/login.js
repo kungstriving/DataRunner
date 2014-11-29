@@ -75,7 +75,7 @@ require(["dojo/dom",
 				},
 				function(error) {
 					//alert the error message
-					console.log(error);
+					console.error(error);
 				}
 		);
 	}

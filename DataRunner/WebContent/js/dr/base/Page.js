@@ -20,6 +20,7 @@ define(["dojo/_base/declare",
         "dr/base/DText", 
         "dr/base/DNodeFactory",
         "dr/base/DSystem",
+        "dr/logger",
         
         "./js/parser.js",
         "./js/jquery-2.1.0.js"],
@@ -42,7 +43,8 @@ define(["dojo/_base/declare",
 			DNode, 
 			DText, 
 			DNodeFactory,
-			DSystem) {
+			DSystem,
+			logger) {
 		var clsPage = declare(null, {
 			
 			/****************** fields *****************************/
@@ -75,6 +77,7 @@ define(["dojo/_base/declare",
 			intervalHandle:null,		// page interval handle
 			observeHandle:null,			// observeHandle.cancel() will finish the observing
 			rootPad:null,				// svg 根元素
+			scaleRatio:1,				// 缩放比率 默认为1
 			
 			/******************* methods *************************/
 			setPageSize:function(){
@@ -119,7 +122,7 @@ define(["dojo/_base/declare",
 				return windowHeight;
 			},
 			_fillWidth:function() {
-				console.log("_fillWidth");
+				logger.debug("_fillWidth");
 				var windowWidth = this._getScreenWidth();	
 				
 				//alert("width:"+windowWidth);
@@ -127,26 +130,30 @@ define(["dojo/_base/declare",
 				var viewBoxWidth = viewBoxVal.split(",")[2];
 				var viewBoxHeight = viewBoxVal.split(",")[3];
 
+				this.scaleRatio = windowWidth/viewBoxWidth;
 				var setWidth = windowWidth;
-				var setHeight = (setWidth * viewBoxHeight) / viewBoxWidth;
+//				var setHeight = (setWidth * viewBoxHeight) / viewBoxWidth;
+				var setHeight = this.scaleRatio * viewBoxHeight;
 				this.rootPad.setAttribute("width", setWidth);
 				this.rootPad.setAttribute("height", setHeight);
 			},
 			_fillHeight:function() {
-				console.log("_fillHeight");
+				logger.debug("_fillHeight");
 				var windowHeight = this._getScreenHeight();	
 				
 				var viewBoxVal = this.rootPad.getAttribute("viewBox");
 				var viewBoxWidth = viewBoxVal.split(",")[2];
 				var viewBoxHeight = viewBoxVal.split(",")[3];
 
+				this.scaleRatio = windowHeight/viewBoxHeight;
 				var setHeight = windowHeight;
-				var setWidth = (setHeight * viewBoxWidth)/viewBoxHeight;
+				var setWidth = this.scaleRatio*viewBoxWidth;
 				this.rootPad.setAttribute("width", setWidth);
 				this.rootPad.setAttribute("height", setHeight);
 			},
 			_fillBoth:function() {
-				console.log("_fillBoth");
+				//TODO 这种情况可以取消
+				logger.debug("_fillBoth");
 				var windowHeight = this._getScreenHeight();
 				var windowWidth = this._getScreenWidth();
 				
@@ -154,7 +161,7 @@ define(["dojo/_base/declare",
 				this.rootPad.setAttribute("height", windowHeight);
 			},
 			_fillNone:function() {
-				console.log("_fillNone");
+				logger.debug("_fillNone");
 				var viewBoxVal = this.rootPad.getAttribute("viewBox");
 				var viewBoxWidth = viewBoxVal.split(",")[2];
 				var viewBoxHeight = viewBoxVal.split(",")[3];
@@ -185,7 +192,7 @@ define(["dojo/_base/declare",
 					var cusJson = JSON.parse(cusContent); 
 					
 					for(var field in cusJson) {
-						console.log("field " + field + " expr " + cusJson[field]);
+						logger.log("field " + field + " expr " + cusJson[field]);
 						var cuExp = cusJson[field];			//current expression
 						var compiled = Parser.parse(cuExp);
 						
@@ -219,10 +226,10 @@ define(["dojo/_base/declare",
 							tagObject.tagval = "";
 							
 							thisPage.tags[tagName] = tagObject;
-							console.log("resolve tag : " + tagName);
+							logger.log("resolve tag : " + tagName);
 						}
 					}
-					console.log(cusContent);
+					logger.log(cusContent);
 				});
 				
 				//register the page for server
@@ -234,7 +241,7 @@ define(["dojo/_base/declare",
 					tagsReg.tags.push(tag);
 				}
 				var tagsRegJson = JSON.stringify(tagsReg);
-				console.log("register page : " + tagsRegJson);
+				logger.log("register page : " + tagsRegJson);
 				request.post(requestURL, {
 					data:{
 						"action":"register",
@@ -244,10 +251,10 @@ define(["dojo/_base/declare",
 					handleAs:"json"
 				}).then(
 						function(response) {
-							console.log(response);
+							logger.log(response);
 						},
 						function(error) {
-							console.log(error);
+							logger.error(error);
 						}
 				);
 			},
@@ -261,7 +268,7 @@ define(["dojo/_base/declare",
 //				var requestURL = common.getContextPath() + "nost";
 				var requestURL = "drd";
 				
-				console.log("page " + thisPage.name + " flag " + thisPage.refreshFlag);
+				logger.info("page " + thisPage.name + " flag " + thisPage.refreshFlag);
 				
 				request.post(requestURL, {
 					data:{
@@ -273,7 +280,7 @@ define(["dojo/_base/declare",
 				}).then(
 						function(response) {
 							//got the new values then update the store
-							console.log("refresh response : " + JSON.stringify(response));		//{tags:{tag1:20,tag2:30,tag3:40},updateFlag:20}
+							logger.debug("refresh response : " + JSON.stringify(response));		//{tags:{tag1:20,tag2:30,tag3:40},updateFlag:20}
 							//{tags:[{"dsName":"","tagName":"","value":"","quality":"","timestamp":"","name":""},
 							//{},{}],updateFlag:10}
 							var needExpsArr = {};		//{exp1:1,exp2:1,exp3:1}
@@ -287,7 +294,7 @@ define(["dojo/_base/declare",
 								var tagValObj = tagArr[i];
 								var tagValue = tagValObj["value"];
 								var tagName = tagValObj["name"];
-								console.log("got new values name = " + tagName + " value = " + tagValue);
+								logger.debug("got new values name = " + tagName + " value = " + tagValue);
 								pageTags[tagName].tagval = tagValue;
 								var refExpsArr = pageTags[tagName].refexps;
 								array.forEach(refExpsArr, function(item) {
@@ -339,14 +346,14 @@ define(["dojo/_base/declare",
 							}
 						},
 						function(error) {
-							console.log(error);
+							logger.error(error);
 						}
 				);
 			},
 			
 			computeExpValue:function(expr, exprObj) {
-				console.log("compute the exp value");
-				console.log("expr = " + expr);
+				logger.log("compute the exp value");
+				logger.info("expr = " + expr);
 				
 				var compiled = exprObj.comp;
 				var vars = compiled.variables();
@@ -354,13 +361,13 @@ define(["dojo/_base/declare",
 				for(var i = 0; i < vars.length; i++) {
 					valueObject[vars[i]] = this.tags[vars[i]].tagval;
 				}
-				console.log("value object = " + JSON.stringify(valueObject));
+				logger.info("value object = " + JSON.stringify(valueObject));
 				var result = compiled.evaluate(valueObject);
 				return result;
 			},
 			
 			start:function() {
-				console.log("start refreshing ");
+				logger.debug("start refreshing ");
 				var thisPage = this;
 				//start observing
 				this.startObserve();
@@ -377,8 +384,8 @@ define(["dojo/_base/declare",
 			    // now listen for every change
 			    this.observeHandle = results.observe(function(expObj, removedFrom, insertedInto){
 			    	//update change
-			    	console.log("observing");
-			    	console.log(expObj);
+			    	logger.debug("observing");
+			    	logger.debug(expObj);
 			    	var newVal = expObj.val;
 			    	array.forEach(expObj.cus, function(contunit) {
 			    		contunit.set(newVal);

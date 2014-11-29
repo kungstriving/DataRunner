@@ -7,12 +7,14 @@ define(["dojo/_base/declare",
         "dr/base/DNode",
         "dr/base/MatchTable",
         "dr/base/DSystem",
+        "dr/logger",
         "./js/snap.svg.js"],
 	function(declare, 
 			domAttr, 
 			query,
 			on,
-			DNode,MatchTable,DSystem) {
+			DNode,MatchTable,DSystem,
+			logger) {
 		return declare(DNode, {
 			
 			/****************** fields *****************************/
@@ -44,12 +46,12 @@ define(["dojo/_base/declare",
 			////////////////////////////元素属性////////////////////////////////
 			x:function(newVal) {
 				domAttr.set(this.rawNode, "x", newVal);
-				console.log('set x new ' + newVal);
+				logger.log('set x new ' + newVal);
 			},
 			
 			y:function(newVal) {
 				domAttr.set(this.rawNode, "y", newVal);
-				console.log('set y new ' + newVal);
+				logger.log('set y new ' + newVal);
 			},
 			
 			//转速属性
@@ -70,13 +72,13 @@ define(["dojo/_base/declare",
 //						snPumpLeaf.animate({transform:"r" + pAngle + ",50,45"},1000,mina.linear,doAnimate(pAngle));
 //					};
 //					doAnimate(angle);
-					console.log('got new pump speed ' + newVal);
+					logger.log('got new pump speed ' + newVal);
 				}
 			},
 			//开关属性
 			pumpSwitch:function(newVal) {
 				//离散变量 由matchtable控制
-				console.log('got new pump switch ' + newVal);
+				logger.log('got new pump switch ' + newVal);
 				//this.pumpon = !this.pumpon;
 			},
 			

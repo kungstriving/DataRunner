@@ -5,9 +5,11 @@ define(["dojo/_base/declare",
         "dojo/query",
         "dojo/on",
         "dr/base/DNode","dr/base/MatchTable","dr/base/DSystem",
+        "dr/logger",
         "./js/snap.svg.js"],
 	function(declare, domAttr, query,on,
-			DNode,MatchTable,DSystem) {
+			DNode,MatchTable,DSystem,
+			logger) {
 		return declare(DNode, {
 			
 			/****************** fields *****************************/
@@ -65,12 +67,12 @@ define(["dojo/_base/declare",
 			////////////////////////////元素属性////////////////////////////////
 			x:function(newVal) {
 				domAttr.set(this.rawNode, "x", newVal);
-				console.log('set x new ' + newVal);
+				logger.log('set x new ' + newVal);
 			},
 			
 			y:function(newVal) {
 				domAttr.set(this.rawNode, "y", newVal);
-				console.log('set y new ' + newVal);
+				logger.log('set y new ' + newVal);
 			},
 			
 			//设置填充百分比 newVal 0~1

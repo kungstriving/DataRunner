@@ -1,6 +1,7 @@
 //define the DNode module
 
-define(["dojo/_base/declare"],
+define(["dojo/_base/declare",
+        "./js/snap.svg.js"],
 	function(declare) {
 		return declare(null, {
 			
@@ -15,6 +16,7 @@ define(["dojo/_base/declare"],
 			 * 调用该函数将直接设置fill属性；对应的Field就是f_fill，它表明当前的填充色的值#999999.可以通过getFill()获取
 			 */
 			rawNode:null,		//the raw HTML/SVG document node
+			snapRawNode:null,	//the snap wrapped node
 			nType:"",		//node type eg:Rect/Circle/Point
 			name:"",		//name for the node
 			id:"",			//id for the node
@@ -29,8 +31,20 @@ define(["dojo/_base/declare"],
 				this.nType = pType;
 				this.name = pName;
 				this.id = pID;
+				this.snapRawNode = Snap("#" + this.id);
+				this._init();
 			},
+//			addSelectBox:function() {
+//				var snapRawNode = Snap("#"+this.id);
+//				var bbox = snapRawNode.getBBox();
+//				
+//				return true;
+//			},
 			/******************* 空方法 子类实现 ******************/
+			/**
+			 * 子类的初始化方法 可以实例化snap对象等
+			 */
+			_init:function() {},
 			/**
 			 * 解析元素所配置的事件处理函数
 			 */

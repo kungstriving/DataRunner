@@ -5,9 +5,11 @@ define(["dojo/_base/declare",
         "dojo/query",
         "dojo/on",
         "dr/base/DNode","dr/base/MatchTable","dr/base/DSystem",
+        "dr/logger",
         "./js/snap.svg.js"],
 	function(declare, domAttr, query,on,
-			DNode,MatchTable,DSystem) {
+			DNode,MatchTable,DSystem,
+			logger) {
 		return declare(DNode, {
 			
 			/****************** fields *****************************/
@@ -40,7 +42,7 @@ define(["dojo/_base/declare",
 						//调用用户定义的关闭开关函数
 						var funcOffHandle = thisSwitch.eventMap["switchoff"];
 						if (funcOffHandle == null || funcOffHandle == "undefined") {
-							console.log("user switchoff event handler not defined");
+							logger.warn("user switchoff event handler not defined");
 						} else {
 							//invoke user function
 //							funcOffHandle();
@@ -55,7 +57,7 @@ define(["dojo/_base/declare",
 						//调用用户定义的打开开关函数
 						var funcOnHandle = thisSwitch.eventMap["switchon"];
 						if (funcOnHandle == null || funcOnHandle == "undefined") {
-							console.log("user switchon event handler not defined");
+							logger.log("user switchon event handler not defined");
 						} else {
 							//invoke user function
 //							funcOnHandle();
@@ -71,12 +73,12 @@ define(["dojo/_base/declare",
 
 			x:function(newVal) {
 				domAttr.set(this.rawNode, "x", newVal);
-				console.log('set x new ' + newVal);
+				logger.log('set x new ' + newVal);
 			},
 			
 			y:function(newVal) {
 				domAttr.set(this.rawNode, "y", newVal);
-				console.log('set y new ' + newVal);
+				logger.log('set y new ' + newVal);
 			},
 			watch_value:function(newVal) {
 				//结合mt(match table)判断如何设定当前控件的表现形态

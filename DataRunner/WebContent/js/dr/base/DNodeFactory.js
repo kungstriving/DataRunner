@@ -46,7 +46,8 @@ define(["dr/base/common","dr/base/DSwitch","dr/base/DText","dr/base/DPump","dr/b
 					var lightObj = new DLight(pNode, pDType, pNodeName, pNodeID);
 					lightObj.handleEvent();
 					lightObj.handleMatchTable();
-					
+					lightObj.handleSetProps();
+					lightObj.registerSelf();
 					return lightObj;
 				}
 			},

@@ -1,14 +1,16 @@
 //define NSystem module is like utils
 define(
 		["dojo/request",
-		 "dr/base/common"],
-		function(request, common) {
+		 "dr/base/common",
+		 "dr/logger"],
+		function(request, common,
+				logger) {
 			return {
 				showSysInfo:function() {
 					alert('sysinfo');
 				},
 				openPage:function(pageName) {
-					console.log("openPage -- " + pageName);
+					logger.info("openPage -- " + pageName);
 					var requestURL = "drd";
 					window.location.href = requestURL + "?action=loadPage&pageName=" + pageName;
 				},
@@ -22,7 +24,7 @@ define(
 					
 					//post the request
 					var requestURL = "drd";
-					console.log("send control command : " + cmdJson);
+					logger.info("send control command : " + cmdJson);
 					request.post(requestURL, {
 						data:{
 							"action":"control",
@@ -31,10 +33,10 @@ define(
 						handleAs:"json"
 					}).then(
 							function(response) {
-								console.log(response);
+								logger.info(response);
 							},
 							function(error) {
-								console.log(error);
+								logger.info(error);
 							}
 					);
 				}

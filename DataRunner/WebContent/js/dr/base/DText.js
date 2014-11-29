@@ -4,9 +4,11 @@ define(["dojo/_base/declare",
         "dojo/dom-attr",
         "dojo/html", 
         "dojo/query",
-        "dr/base/DNode","dr/base/common"],
+        "dr/base/DNode","dr/base/common",
+        "dr/logger"],
 	function(declare, domAttr, html, query,
-			DNode,DCommon) {
+			DNode,DCommon,
+			logger) {
 		var flashAnimID = "ba8ddb2e-c935-414b-b119-262ddd4a18d7";
 		
 		return declare(DNode, {
@@ -38,11 +40,11 @@ define(["dojo/_base/declare",
 			////////////////// 元素属性 //////////////////////////
 			x:function(newVal) {
 				domAttr.set(this.rawNode, "x", newVal);
-				console.log('set x new ' + newVal);
+				logger.log('set x new ' + newVal);
 			},
 			y:function(newVal) {
 				domAttr.set(this.rawNode, "y", newVal);
-				console.log('set y new ' + newVal);
+				logger.log('set y new ' + newVal);
 			},
 			fill:function(newVal) {
 				var newColor = "orange";
@@ -52,12 +54,12 @@ define(["dojo/_base/declare",
 					newColor = "DeepPink";
 				}
 				domAttr.set(this.rawNode,"fill",newColor);
-				console.log('set fill new ' + newVal);
+				logger.log('set fill new ' + newVal);
 			},
 			text:function(newVal) {
 				html.set(this.rawNode,newVal + "");
 //				domAttr.set(this.rawNode,"text",newVal);
-				console.log('set text new ' + newVal);
+				logger.log('set text new ' + newVal);
 				//this.beginFlash();
 			},
 			

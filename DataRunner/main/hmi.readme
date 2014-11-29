@@ -26,7 +26,7 @@ ec={"eventsource":"event-handle-func",
 4............................................
 //set props 设置固定属性值，与cus[control units]相似，cus配置的是某个属性对应的可变表达式；而sps[set props]配置的
 //是固定值，比如背景色固定是红色
-sps={"prop-A":"value1","prop-B":"value2"}
+sps=[{"set_prop":"propA","set_value":"value1"},[{"set_prop":"propB", "set_value","value2"}]
 
 5..............................................
 ntype 表明该元素类型

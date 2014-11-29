@@ -1,4 +1,4 @@
-//define the Page module
+//define the ControlUnit module
 
 define(["dojo/_base/declare",
         "dojo/store/Memory",

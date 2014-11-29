@@ -3,9 +3,11 @@
 
 define(
 		["dojo/_base/declare",
-		 "dr/base/MatchStatus"],
+		 "dr/base/MatchStatus",
+		 "dr/logger"],
 		function(declare,
-				MatchStatus) {
+				MatchStatus,
+				logger) {
 			return declare(null, {
 				triggerMap:null, //{watch_value:msObj}
 				
@@ -20,7 +22,7 @@ define(
 						}
 					}
 					
-					console.log("[warning] 没有状态匹配成功[pTriggerField="
+					logger.warn("[warning] 没有状态匹配成功[pTriggerField="
 							+ pTriggerField + "newVal=" + newVal + "]");
 					throw "no matching status";
 				},
